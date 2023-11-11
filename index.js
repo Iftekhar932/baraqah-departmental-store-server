@@ -5,21 +5,24 @@ const cors = require("cors");
 require("dotenv").config();
 
 // middleware
-const authenticateJWT = require("./middlewares/authenticateJWT.js");
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+const authenticateJWT = require("./middlewares/authenticateJWT.js");
+
+// controllers
+const LoginController = require("./controllers/LoginController.js");
+const RegisterController = require("./controllers/RegisterController.js");
 
 //  mongoose schema and database connection
 const Product = require("./Schemas/ProductSchema.js");
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/register", RegisterController);
+app.use("/login", LoginController);
 
-app.use(authenticateJWT);
+// app.use(authenticateJWT);
 
 app.get("/getAllProducts", async (req, res) => {
   const products = await Product.find();

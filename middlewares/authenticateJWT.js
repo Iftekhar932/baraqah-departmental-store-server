@@ -13,6 +13,7 @@ const authenticateJWT = async (req, res, next) => {
     const pwdMatch = bcrypt.compare(password, dbPWD);
     if (!pwdMatch) return res.status(403);
 
+    // *jwt sign in is not there yet
     JWT.verify(process.env.SECRET_KEY, (err, user) => {
       console.log("✨ 🌟  JWT.verify  user:", user);
       if (err) res.status(403).json("token is not valid");
