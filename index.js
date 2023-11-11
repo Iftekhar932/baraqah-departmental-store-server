@@ -1,11 +1,11 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT || 3000;
 const cors = require("cors");
 require("dotenv").config();
 
 // middleware
+const authenticateJWT = require("./middlewares/authenticateJWT.js");
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -18,6 +18,8 @@ connectDB();
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+app.use(authenticateJWT);
 
 app.get("/getAllProducts", async (req, res) => {
   const products = await Product.find();
