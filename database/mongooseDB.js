@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const uri = `mongodb+srv://${process.env.mongoUSR}:${process.env.mongoPWD}@cluster0.hgty8ov.mongodb.net/baraqahShop?retryWrites=true&w=majority`;
 
 const connectDB = () => {
-  mongoose.connect(process.env.mongoDBHost, {
+  mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
@@ -9,7 +10,7 @@ const connectDB = () => {
   const db = mongoose.connection;
   db.on("error", console.error.bind(console, "connection error:"));
   db.once("open", function () {
-    console.log("We're connected to the database!");
+    console.log("We're connected to the database 👍👍👍!");
   });
 };
 
