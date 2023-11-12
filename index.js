@@ -16,6 +16,7 @@ const RegisterController = require("./controllers/RegisterController.js");
 
 //  mongoose schema and database connection
 const Product = require("./Schemas/ProductSchema.js");
+const UserSchema = require("./Schemas/UserSchema.js");
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
@@ -24,10 +25,9 @@ app.use("/login", LoginController);
 
 // app.use(authenticateJWT);
 
-app.get("/getAllProducts", async (req, res) => {
-  const products = await Product.find();
-  res.send(products);
-});
+app.get("/getAllProducts", require("./routes/api/products"));
+
+app.get("/getAllUsers", require("./routes/api/users.js"));
 
 app.listen(port, () => {
   console.log(`Express app listening at http://localhost:${port}`);
