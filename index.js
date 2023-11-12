@@ -15,13 +15,11 @@ const LoginController = require("./controllers/LoginController.js");
 const RegisterController = require("./controllers/RegisterController.js");
 
 //  mongoose schema and database connection
-const Product = require("./Schemas/ProductSchema.js");
-const UserSchema = require("./Schemas/UserSchema.js");
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
-app.use("/register", RegisterController);
-app.use("/login", LoginController);
+app.use("/register", require("./controllers/RegisterController.js"));
+app.use("/login", require("./controllers/LoginController.js"));
 
 // app.use(authenticateJWT);
 
