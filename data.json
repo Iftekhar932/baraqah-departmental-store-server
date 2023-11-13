@@ -1,66 +1,74 @@
 [
-    {
-        "id": 1,
-        "name": "Apple",
-        "category": "Fruits",
-        "price": 0.25,
-        "unit": "each",
-        "img": "https://i.ibb.co/Z2Rv42X/apple.jpg"
-    },
-    {
-        "id": 2,
-        "name": "Banana",
-        "category": "Fruits",
-        "price": 0.15,
-        "unit": "each",
-        "img": "https://i.ibb.co/ypMXWf7/banana.jpg"
-    },
-    {
-        "id": 3,
-        "name": "Orange",
-        "category": "Fruits",
-        "price": 0.20,
-        "unit": "each",
-        "img": "https://i.ibb.co/Nx27c5m/orange.jpg"
-    },
-    {
-        "id": 4,
-        "name": "Cheese",
-        "category": "Dairy",
-        "price": 0.70,
-        "unit": "pound",
-        "img": "https://i.ibb.co/Jc2tLrr/cheese.jpg"
-    },
-    {
-        "id": 5,
-        "name": "Eggs",
-        "category": "Dairy",
-        "price": 0.00,
-        "unit": "dozen",
-        "img": "https://i.ibb.co/HNhJV9b/eggs2.jpg"
-    },
-    {
-        "id": 6,
-        "name": "Butter",
-        "category": "Dairy",
-        "price": 0.50,
-        "unit": "pound",
-        "img": "https://i.ibb.co/3Nd4x3r/butter.jpg"
-    },
-    {
-        "id": 7,
-        "name": "Milk",
-        "category": "Dairy",
-        "price": 1.40,
-        "unit": "gallon",
-        "img": "https://i.ibb.co/V3r73sK/milk.jpg"
-    },
-    {
-        "id": 8,
-        "name": "Bread",
-        "category": "Bakery",
-        "price": 0.30,
-        "unit": "loaf",
-        "img": "https://i.ibb.co/Pg9FcwL/bread.jpg"
-    }
+  {
+    "id": 1,
+    "name": "Apple",
+    "category": "Fruits",
+    "price": 0.25,
+    "unit": "each",
+    "img": "https://i.ibb.co/Z2Rv42X/apple.jpg",
+    "categoryImg": "https://i.ibb.co/y80tfRY/fruits.png"
+  },
+  {
+    "id": 2,
+    "name": "Banana",
+    "category": "Fruits",
+    "price": 0.15,
+    "unit": "each",
+    "img": "https://i.ibb.co/ypMXWf7/banana.jpg",
+    "categoryImg": "https://i.ibb.co/y80tfRY/fruits.png"
+  },
+  {
+    "id": 3,
+    "name": "Orange",
+    "category": "Fruits",
+    "price": 0.2,
+    "unit": "each",
+    "img": "https://i.ibb.co/Nx27c5m/orange.jpg",
+    "categoryImg": "https://i.ibb.co/y80tfRY/fruits.png"
+  },
+  {
+    "id": 4,
+    "name": "Cheese",
+    "category": "Dairy",
+    "price": 0.7,
+    "unit": "pound",
+    "img": "https://i.ibb.co/Jc2tLrr/cheese.jpg",
+    "categoryImg": "https://i.ibb.co/KKPqTF1/milk.png"
+  },
+  {
+    "id": 5,
+    "name": "Eggs",
+    "category": "Dairy",
+    "price": 0.0,
+    "unit": "dozen",
+    "img": "https://i.ibb.co/HNhJV9b/eggs2.jpg",
+    "categoryImg": "https://i.ibb.co/KKPqTF1/milk.png"
+  },
+  {
+    "id": 6,
+    "name": "Butter",
+    "category": "Dairy",
+    "price": 0.5,
+    "unit": "pound",
+    "img": "https://i.ibb.co/3Nd4x3r/butter.jpg",
+    "categoryImg": "https://i.ibb.co/KKPqTF1/milk.png"
+  },
+  {
+    "id": 7,
+    "name": "Milk",
+    "category": "Dairy",
+    "price": 1.4,
+    "unit": "gallon",
+    "img": "https://i.ibb.co/V3r73sK/milk.jpg",
+    "categoryImg": "https://i.ibb.co/KKPqTF1/milk.png"
+  },
+  {
+    "id": 8,
+    "name": "Bread",
+    "category": "Bakery",
+    "price": 0.3,
+    "unit": "loaf",
+    "img": "https://i.ibb.co/Pg9FcwL/bread.jpg",
+    "categoryImg": "https://i.ibb.co/h13WKSP/bread.png"
+  }
 ]
