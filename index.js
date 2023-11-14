@@ -19,7 +19,8 @@ app.use("/login", require("./controllers/LoginController.js"));
 
 // app.use(authenticateJWT);
 
-app.get("/getAllProducts", require("./routes/api/products"));
+app.use("/getAllProducts", require("./routes/api/product"));
+app.use("/getAllProducts", require("./routes/api/products"));
 
 app.get("/getAllUsers", require("./routes/api/users.js"));
 
