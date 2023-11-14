@@ -14,8 +14,8 @@ const authenticateJWT = require("./middlewares/authenticateJWT.js");
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
-app.use("/register", require("./controllers/RegisterController.js"));
-app.use("/login", require("./controllers/LoginController.js"));
+app.use("/register", require("./controllers/registerController.js"));
+app.use("/login", require("./controllers/loginController.js"));
 
 // app.use(authenticateJWT);
 

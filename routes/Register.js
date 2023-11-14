@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const RegisterController = require("../controllers/RegisterController.js");
+const RegisterController = require("../controllers/registerController.js");
 
 app.post("/register", RegisterController);
 
