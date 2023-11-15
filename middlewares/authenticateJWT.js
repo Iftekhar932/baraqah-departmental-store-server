@@ -20,7 +20,7 @@ const authenticateJWT = async (req, res, next) => {
       next();
     });
   } catch (error) {
-    console.log("✨ 🌟  authenticateJWT  error CUSTOMCODE:LINE12  :", error);
+    console.log("✨ 🌟  authenticateJWT  error CUSTOMCODE:line23  :", error);
   }
 };
 module.exports = authenticateJWT;

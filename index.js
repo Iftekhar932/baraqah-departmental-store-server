@@ -17,10 +17,9 @@ connectDB();
 app.use("/register", require("./controllers/registerController.js"));
 app.use("/login", require("./controllers/loginController.js"));
 
-// app.use(authenticateJWT);
+app.use(authenticateJWT);
 
 app.use("/getAllProducts", require("./routes/api/product")); // this one has param "category"
-const Product = require("./Schemas/ProductSchema.js");
 
 app.use("/getAllProducts", require("./controllers/productsController.js"));
 

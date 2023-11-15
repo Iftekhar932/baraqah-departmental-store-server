@@ -6,7 +6,6 @@ const productController = async (req, res) => {
     categoryProducts = products.filter(
       (p) => p.category.toLowerCase() === req.params.category.toLowerCase()
     );
-    console.log(categoryProducts);
     await res.send(categoryProducts);
   } catch (error) {
     console.log(
