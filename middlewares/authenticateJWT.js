@@ -1,21 +1,13 @@
 const JWT = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-// schema
-const User = require("../Schemas/UserSchema");
 
 const authenticateJWT = async (req, res, next) => {
-  const { email, password } = req.body;
-  console.log(email, password);
   try {
-    const dbPWD = await User.find({ password });
-    if (!dbPWD) return res.status(403);
+    const headersToken = req.headers.Authorization || req.headers.authorization;
+    const token = headersToken.split(" ")[1];
 
-    const pwdMatch = bcrypt.compare(password, dbPWD);
-    if (!pwdMatch) return res.status(403);
-
-    JWT.verify(process.env.SECRET_KEY, (err, user) => {
+    JWT.verify(token, process.env.SECRET_KEY, (err, user) => {
       console.log("✨ 🌟  JWT.verify  user:", user);
-      if (err) res.status(403).json("token is not valid");
+      if (err) return res.status(403).json("token is not valid");
       req.user = user;
       next();
     });

@@ -16,7 +16,9 @@ const LoginController = async (req, res) => {
     }
 
     // jwt sign
-    const providedJWT = JWT.sign({ email: email }, process.env.SECRET_KEY);
+    const providedJWT = JWT.sign({ email: email }, process.env.SECRET_KEY, {
+      expiresIn: "1m",
+    });
 
     res.status(200).json({ providedJWT });
   } catch (error) {
