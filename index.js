@@ -19,8 +19,10 @@ app.use("/login", require("./controllers/loginController.js"));
 
 // app.use(authenticateJWT);
 
-app.use("/getAllProducts", require("./routes/api/product"));
-app.use("/getAllProducts", require("./routes/api/products"));
+app.use("/getAllProducts", require("./routes/api/product")); // this one has param "category"
+const Product = require("./Schemas/ProductSchema.js");
+
+app.use("/getAllProducts", require("./controllers/productsController.js"));
 
 app.get("/getAllUsers", require("./routes/api/users.js"));
 

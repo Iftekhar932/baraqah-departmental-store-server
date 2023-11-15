@@ -1,8 +1,13 @@
-// const Product = require("../Schemas/ProductSchema");
+const Product = require("../Schemas/ProductSchema");
 
 const productController = async (req, res) => {
   try {
-    res.send(req.params.category);
+    const products = await Product.find();
+    categoryProducts = products.filter(
+      (p) => p.category.toLowerCase() === req.params.category.toLowerCase()
+    );
+    console.log(categoryProducts);
+    await res.send(categoryProducts);
   } catch (error) {
     console.log(
       "🚀 ~ file: productController.js:7 ~ productController ~ error customRef:line 7:",
