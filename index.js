@@ -14,6 +14,7 @@ const authenticateJWT = require("./middlewares/authenticateJWT.js");
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
+// got firebase for register/login
 app.use("/register", require("./controllers/registerController.js"));
 app.use("/login", require("./controllers/loginController.js"));
 
