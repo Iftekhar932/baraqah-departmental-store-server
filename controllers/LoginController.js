@@ -4,6 +4,7 @@ const JWT = require("jsonwebtoken");
 
 const LoginController = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password);
   try {
     const userInfo = await User.find({ email: email }); // getting user from db for password
     if (userInfo.length <= 0)
