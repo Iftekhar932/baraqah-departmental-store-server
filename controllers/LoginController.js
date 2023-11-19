@@ -17,11 +17,11 @@ const LoginController = async (req, res) => {
     }
 
     // jwt sign
-    const providedJWT = JWT.sign({ email: email }, process.env.SECRET_KEY, {
+    const accessToken = JWT.sign({ email: email }, process.env.SECRET_KEY, {
       expiresIn: "1m",
     });
 
-    res.status(200).json({ providedJWT });
+    res.status(200).json({ accessToken });
   } catch (error) {
     console.log("✨ 🌟  LoginController  error: customRef:line22", error);
   }
