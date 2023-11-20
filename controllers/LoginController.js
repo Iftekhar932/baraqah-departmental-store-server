@@ -17,7 +17,14 @@ const LoginController = async (req, res) => {
 
     // jwt sign
     const accessToken = JWT.sign({ email: email }, process.env.SECRET_KEY, {
-      expiresIn: "15s",
+      expiresIn: "15m",
+    });
+
+    res.cookie("access_token", accessToken, {
+      maxAge: 24 * 60 * 60 * 1000,
+      httpOnly: false,
+      secure: false,
+      sameSite: "none",
     });
 
     res.status(200).json({ accessToken });

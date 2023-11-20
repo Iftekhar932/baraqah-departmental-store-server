@@ -1,13 +1,14 @@
 const JWT = require("jsonwebtoken");
 
-const authenticateJWT = async (req, res, next) => {
+const authenticateJWT = (req, res, next) => {
   try {
-    const headersToken = req.headers.Authorization || req.headers.authorization;
+    /* const headersToken = req.headers.Authorization || req.headers.authorization;
     const token = headersToken?.split(" ")[1];
     console.log(
       "🚀 ~ file: authenticateJWT.js:7 ~ authenticateJWT ~ token:",
       token
-    );
+    ); */
+    const token = req.cookies.access_token;
 
     JWT.verify(token, process.env.SECRET_KEY, (err, user) => {
       console.log("✨ 🌟  JWT.verify  user:", user);
@@ -21,7 +22,13 @@ const authenticateJWT = async (req, res, next) => {
       next();
     });
   } catch (error) {
-    console.log("✨ 🌟  authenticateJWT  error CUSTOMCODE:line23  :", error);
+    console.log(
+      "✨ 🌟  authenticateJWT  error line23 ❌❌❌",
+      {
+        error,
+      },
+      "❌❌❌"
+    );
   }
 };
 module.exports = authenticateJWT;
