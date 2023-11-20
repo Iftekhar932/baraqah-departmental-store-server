@@ -22,13 +22,7 @@ const authenticateJWT = (req, res, next) => {
       next();
     });
   } catch (error) {
-    console.log(
-      "✨ 🌟  authenticateJWT  error line23 ❌❌❌",
-      {
-        error,
-      },
-      "❌❌❌"
-    );
+    console.log("✨ 🌟  authenticateJWT  error line23 ❌❌❌", error, "❌❌❌");
   }
 };
 module.exports = authenticateJWT;
