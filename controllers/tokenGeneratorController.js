@@ -12,9 +12,17 @@ const tokenGeneratorController = (req, res) => {
     { uid, email: email, role },
     process.env.SECRET_KEY,
     {
-      expiresIn: "1m",
+      expiresIn: "15m",
     }
   );
-  res.json({ accessToken });
+
+  res.cookie("access_token", accessToken, {
+    maxAge: 24 * 60 * 60 * 1000,
+    httpOnly: false,
+    secure: false,
+    sameSite: "none",
+  });
+
+  res.status(200).json({ msg: "successful" });
 };
 module.exports = tokenGeneratorController;

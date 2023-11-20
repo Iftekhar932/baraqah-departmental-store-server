@@ -1,6 +1,7 @@
 const Product = require("../Schemas/ProductSchema");
 
 const productsController = async (req, res) => {
+  console.log("hello");
   try {
     const products = await Product.find();
     await res.send(products);

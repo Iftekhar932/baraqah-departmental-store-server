@@ -27,7 +27,7 @@ app.use(
 
 app.use(authenticateJWT);
 app.use("/getAllProducts", require("./routes/api/product")); // this one has param "category"
-app.use("/getAllProducts", require("./controllers/productsController.js"));
+app.use("/getAllProducts", require("./controllers/productsController"));
 
 app.get("/getAllUsers", require("./routes/api/users.js"));
 

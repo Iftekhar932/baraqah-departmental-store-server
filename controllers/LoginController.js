@@ -31,7 +31,7 @@ const LoginController = async (req, res) => {
       sameSite: "none",
     });
 
-    res.status(200).json({ accessToken });
+    res.status(200).json({ msg: "successful" });
   } catch (error) {
     console.log("✨ 🌟  LoginController  error: customRef:line22", error);
   }
