@@ -26,7 +26,7 @@ const LoginController = async (req, res) => {
 
     res.cookie("access_token", accessToken, {
       maxAge: 24 * 60 * 60 * 1000,
-      httpOnly: false,
+      httpOnly: true,
       secure: false,
       sameSite: "none",
     });

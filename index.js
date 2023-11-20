@@ -16,6 +16,15 @@ const authenticateJWT = require("./middlewares/authenticateJWT.js");
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 // got firebase for register/login
 app.use("/register", require("./controllers/registerController.js"));
 app.use("/login", require("./controllers/loginController.js"));
@@ -37,7 +46,7 @@ app.listen(port, () => {
 
 /* 
 * using postman it works
-todo: check if it using website
+todo: check if it works using website
 
 
 
