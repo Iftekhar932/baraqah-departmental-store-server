@@ -14,10 +14,6 @@ const authenticateJWT = (req, res, next) => {
       console.log("✨ 🌟  JWT.verify  user:", user);
       if (err) return res.status(403).json("token is not valid");
       req.user = user;
-      console.log(
-        "🚀 ~ file: authenticateJWT.js:16 ~ JWT.verify ~ user:",
-        user
-      );
 
       next();
     });
