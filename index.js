@@ -18,12 +18,14 @@ connectDB();
 app.use("/register", require("./controllers/registerController.js"));
 app.use("/login", require("./controllers/loginController.js"));
 
-app.use('/jsonWebAccessToken', require('./controllers/tokenGeneratorController'))
-
-app.use("/getAllProducts", require("./routes/api/product")); // this one has param "category"
-app.use("/getAllProducts", require("./controllers/productsController.js"));
+app.use(
+  "/jsonWebAccessToken",
+  require("./controllers/tokenGeneratorController")
+);
 
 app.use(authenticateJWT);
+app.use("/getAllProducts", require("./routes/api/product")); // this one has param "category"
+app.use("/getAllProducts", require("./controllers/productsController.js"));
 
 app.get("/getAllUsers", require("./routes/api/users.js"));
 
