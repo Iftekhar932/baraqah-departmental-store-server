@@ -9,10 +9,6 @@ const authenticateJWT = (req, res, next) => {
       token
     ); */
     const token = req.cookies.access_token;
-    console.log(
-      "🚀 ~ file: authenticateJWT.js:12 ~ authenticateJWT ~ token:",
-      token
-    );
 
     JWT.verify(token, process.env.SECRET_KEY, (err, user) => {
       if (err) return res.status(403).json("token is not valid");

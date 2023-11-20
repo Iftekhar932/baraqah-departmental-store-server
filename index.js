@@ -25,9 +25,10 @@ app.use(
   require("./controllers/tokenGeneratorController")
 );
 
-app.use(authenticateJWT);
+// app.use(authenticateJWT);
 app.use("/getAllProducts", require("./routes/api/product")); // this one has param "category"
-app.use("/getAllProducts", require("./controllers/productsController"));
+app.use("/getAllProducts", require("./routes/api/products"));
+// app.use("/getAllProducts", require("./controllers/productsController.js"));
 
 app.get("/getAllUsers", require("./routes/api/users.js"));
 
