@@ -1,8 +1,11 @@
 const User = require("../Schemas/UserSchema");
 
 const usersController = async (req, res) => {
-  console.log("THIS IS USER 🍎🍎🍎");
-  const products = await User.find();
-  res.send(products);
+  try {
+    const users = await User.find();
+    await res.send(users);
+  } catch (error) {
+    console.log("✨ 🌟  usersController  error:", error);
+  }
 };
 module.exports = usersController;

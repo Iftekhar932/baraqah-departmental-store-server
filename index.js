@@ -25,13 +25,20 @@ app.use(
   require("./controllers/tokenGeneratorController")
 );
 
-// app.use(authenticateJWT);
-app.use("/getAllProducts", require("./routes/api/product")); // this one has param "category"
-app.use("/getAllProducts", require("./routes/api/products"));
-// app.use("/getAllProducts", require("./controllers/productsController.js"));
+app.use(authenticateJWT);
+app.use("/", require("./routes/api/product")); // this one has param "category"
+app.use("/", require("./routes/api/allProducts.js"));
 
-app.get("/getAllUsers", require("./routes/api/users.js"));
+app.use("/", require("./routes/api/users.js"));
 
 app.listen(port, () => {
   console.log(`RUNNING ON PORT 👉👉 ${port}`);
 });
+
+/* 
+* using postman it works
+todo: check if it using website
+
+
+
+*/
