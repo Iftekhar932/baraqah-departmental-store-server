@@ -29,10 +29,10 @@ const LoginController = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: false,
       secure: false,
-      sameSite: "none",
+      sameSite: "lax",
     });
 
-    res.status(200).json({ accessToken });
+    res.status(200).send(accessToken);
   } catch (error) {
     console.log("✨ 🌟  LoginController  error: customRef:line22", error);
   }

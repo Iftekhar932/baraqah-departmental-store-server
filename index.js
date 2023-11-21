@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 // const corsOptions = require("./config/corsOptions.js");
 
 // middleware
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 // app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -18,12 +18,14 @@ const authenticateJWT = require("./middlewares/authenticateJWT.js");
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // replace 'http://example.com' with your origin
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // replace 'Content-Type' with your headers
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  /* res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  ); */
   next();
 });
 
