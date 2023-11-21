@@ -47,11 +47,3 @@ app.use("/", require("./routes/api/users.js"));
 app.listen(port, () => {
   console.log(`RUNNING ON PORT 👉👉 ${port}`);
 });
-
-/* 
-* using postman it works
-todo: check if it works using website
-
-
-
-*/
