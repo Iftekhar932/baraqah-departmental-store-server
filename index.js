@@ -4,9 +4,11 @@ const port = process.env.PORT || 3001;
 const cors = require("cors");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
+// const corsOptions = require("./config/corsOptions.js");
 
 // middleware
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+// app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

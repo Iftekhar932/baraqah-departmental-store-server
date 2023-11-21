@@ -23,10 +23,11 @@ const LoginController = async (req, res) => {
         expiresIn: "15m",
       }
     );
+    console.log("✨ 🌟  LoginController  accessToken:", accessToken);
 
     res.cookie("access_token", accessToken, {
       maxAge: 24 * 60 * 60 * 1000,
-      httpOnly: true,
+      httpOnly: false,
       secure: false,
       sameSite: "none",
     });
