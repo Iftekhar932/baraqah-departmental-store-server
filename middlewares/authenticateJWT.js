@@ -4,10 +4,6 @@ const authenticateJWT = (req, res, next) => {
   try {
     const headersToken = req.headers.Authorization || req.headers.authorization;
     const token = headersToken?.split(" ")[1];
-    console.log(
-      "🚀 ~ file: authenticateJWT.js:7 ~ authenticateJWT ~ token:",
-      token
-    );
 
     // for cookies
     // const token = req.cookies.access_token;
