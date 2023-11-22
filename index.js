@@ -19,8 +19,8 @@ const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // replace 'http://example.com' with your origin
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // replace 'Content-Type' with your headers
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", true);
   /* res.header(
     "Access-Control-Allow-Headers",
