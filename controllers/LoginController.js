@@ -28,7 +28,7 @@ const LoginController = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: false,
       secure: false,
-      sameSite: "lax",
+      sameSite: "none",
     });
 
     res.status(200).send(accessToken);
