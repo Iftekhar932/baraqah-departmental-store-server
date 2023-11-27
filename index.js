@@ -36,9 +36,11 @@ app.use("/login", require("./controllers/loginController.js"));
 app.use(
   "/jsonWebAccessToken",
   require("./controllers/tokenGeneratorController")
-);
+); // this one's for google or any other sign in method of firebase used in client side's "useFirebase" hook
 
 app.use(authenticateJWT);
+
+app.use("/", require("./routes/api/singleProduct")); // this one has param "productId"
 app.use("/", require("./routes/api/product")); // this one has param "category"
 app.use("/", require("./routes/api/allProducts.js"));
 
