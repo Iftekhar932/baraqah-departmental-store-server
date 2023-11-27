@@ -38,7 +38,7 @@ app.use(
   require("./controllers/tokenGeneratorController")
 ); // this one's for google or any other sign in method of firebase used in client side's "useFirebase" hook
 
-app.use(authenticateJWT);
+// todo uncomment it later while removing these symbols =>  app.use(authenticateJWT);
 
 app.use("/", require("./routes/api/singleProduct")); // this one has param "productId"
 app.use("/", require("./routes/api/product")); // this one has param "category"
