@@ -36,9 +36,9 @@ app.use(
 ); // this one's for google or any other sign in method of firebase used in client side's "useFirebase" hook
 
 // todo uncomment it later
-// app.use(authenticateJWT);
+app.use(authenticateJWT);
 
-app.use("/", require("./routes/api/adminGetUsers.js"));
+// app.use("/", require("./routes/api/adminGetUsers.js"));
 
 app.use("/", require("./routes/api/singleProduct")); // this one has param "productId"
 app.use("/", require("./routes/api/product")); // this one has param "category"

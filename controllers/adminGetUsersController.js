@@ -4,14 +4,13 @@ const firebaseAdmin = require("../firebase/firebaseAdmin.js"); // Adjust the pat
 
 const adminGetUsersController = async (req, res) => {
   try {
-    // todo: test the jwt role authentication this route is only for admin
-    /* if (req.user.role !== "admin") {
-      return;
+    /*  if (req.user.role !== "admin") {
+      return res.sendStatus(403); //forbidden
     } */
     const listUsersResult = await firebaseAdmin.auth().listUsers();
     const users = listUsersResult.users;
     // Send the users as a JSON response
-    res.status(200).json({ users });
+    res.status(200).json({ firebaseAccounts: users });
   } catch (error) {
     console.error("Error listing users:", error);
 
