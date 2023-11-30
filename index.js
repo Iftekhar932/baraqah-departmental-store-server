@@ -18,18 +18,15 @@ const authenticateJWT = require("./middlewares/authenticateJWT.js");
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", true);
-  /* res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  ); */
+  
   next();
 });
+ */
 
-// got firebase for register/login
 app.use("/register", require("./controllers/registerController.js"));
 app.use("/login", require("./controllers/loginController.js"));
 
@@ -40,29 +37,8 @@ app.use(
 
 // todo uncomment it later
 // app.use(authenticateJWT);
-const firebaseAdmin = require("./firebase/firebaseAdmin.js"); // Adjust the path accordingly
 
-app.get("/adminGetUsers", async function getAllUsers(req, res) {
-  try {
-    const listUsersResult = await firebaseAdmin.auth().listUsers();
-    const users = listUsersResult.users;
-
-    /* users.forEach((user) => {
-      console.log("User ID:", user.uid);
-      console.log("Email:", user.email);
-      console.log("Display Name:", user.displayName || "N/A");
-      console.log("---");
-    }); */
-
-    // Send the users as a JSON response
-    res.status(200).json({ users });
-  } catch (error) {
-    console.error("Error listing users:", error);
-
-    // Handle the error and send an appropriate response
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+app.use("/", require("./routes/api/adminGetUsers.js"));
 
 app.use("/", require("./routes/api/singleProduct")); // this one has param "productId"
 app.use("/", require("./routes/api/product")); // this one has param "category"
