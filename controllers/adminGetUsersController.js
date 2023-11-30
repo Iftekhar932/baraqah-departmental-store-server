@@ -3,10 +3,14 @@
 const firebaseAdmin = require("../firebase/firebaseAdmin.js"); // Adjust the path accordingly
 
 const adminGetUsersController = async (req, res) => {
+  console.log("💜💜💜🟪🟪", req.user);
   try {
-    /*  if (req.user.role !== "admin") {
+    if (req.user.role !== "admin") {
+      console.log("from here");
       return res.sendStatus(403); //forbidden
-    } */
+    }
+    console.log("not from here");
+
     const listUsersResult = await firebaseAdmin.auth().listUsers();
     const users = listUsersResult.users;
     // Send the users as a JSON response

@@ -38,7 +38,7 @@ app.use(
 // todo uncomment it later
 app.use(authenticateJWT);
 
-// app.use("/", require("./routes/api/adminGetUsers.js"));
+app.use("/", require("./routes/api/adminGetUsers.js"));
 
 app.use("/", require("./routes/api/singleProduct")); // this one has param "productId"
 app.use("/", require("./routes/api/product")); // this one has param "category"
