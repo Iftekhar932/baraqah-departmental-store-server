@@ -4,6 +4,10 @@ const firebaseAdmin = require("../firebase/firebaseAdmin.js"); // Adjust the pat
 
 const adminGetUsersController = async (req, res) => {
   try {
+    // todo: test the jwt role authentication this route is only for admin
+    /* if (req.user.role !== "admin") {
+      return;
+    } */
     const listUsersResult = await firebaseAdmin.auth().listUsers();
     const users = listUsersResult.users;
     // Send the users as a JSON response
