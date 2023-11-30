@@ -2,7 +2,6 @@ const Product = require("../Schemas/ProductSchema");
 
 const productController = async (req, res) => {
   try {
-    console.log("productController");
     const products = await Product.find();
     categoryProducts = products.filter(
       (p) => p.category.toLowerCase() === req.params.category.toLowerCase()

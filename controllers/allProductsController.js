@@ -2,7 +2,6 @@ const Product = require("../Schemas/ProductSchema");
 
 const allProductsController = async (req, res) => {
   try {
-    console.log("allproduct");
     const products = await Product.find();
     await res.send(products);
   } catch (error) {

@@ -3,7 +3,7 @@
 const firebaseAdmin = require("../firebase/firebaseAdmin.js"); // Adjust the path accordingly
 
 const adminGetUsersController = async (req, res) => {
-  console.log("💜💜💜🟪🟪", req.user);
+  console.log("💜💜💜🟪🟪", req.user.role);
   try {
     if (req.user.role !== "admin") {
       console.log("from here");
