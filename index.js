@@ -38,7 +38,31 @@ app.use(
   require("./controllers/tokenGeneratorController")
 ); // this one's for google or any other sign in method of firebase used in client side's "useFirebase" hook
 
-// todo uncomment it later while removing these symbols =>  app.use(authenticateJWT);
+// todo uncomment it later
+// app.use(authenticateJWT);
+const firebaseAdmin = require("./firebase/firebaseAdmin.js"); // Adjust the path accordingly
+
+app.get("/adminGetUsers", async function getAllUsers(req, res) {
+  try {
+    const listUsersResult = await firebaseAdmin.auth().listUsers();
+    const users = listUsersResult.users;
+
+    /* users.forEach((user) => {
+      console.log("User ID:", user.uid);
+      console.log("Email:", user.email);
+      console.log("Display Name:", user.displayName || "N/A");
+      console.log("---");
+    }); */
+
+    // Send the users as a JSON response
+    res.status(200).json({ users });
+  } catch (error) {
+    console.error("Error listing users:", error);
+
+    // Handle the error and send an appropriate response
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 app.use("/", require("./routes/api/singleProduct")); // this one has param "productId"
 app.use("/", require("./routes/api/product")); // this one has param "category"
