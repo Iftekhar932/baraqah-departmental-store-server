@@ -1,20 +1,18 @@
-// const User = require("../Schemas/UserSchema");
+const User = require("../Schemas/UserSchema");
 // got firebase for google sign in
 const firebaseAdmin = require("../firebase/firebaseAdmin.js"); // Adjust the path accordingly
 
 const adminGetUsersController = async (req, res) => {
-  console.log("💜💜💜🟪🟪", req.user.role);
   try {
-    if (req.user.role !== "admin") {
-      console.log("from here");
+    /* if (req.user.role !== "admin") {
       return res.sendStatus(403); //forbidden
-    }
-    console.log("not from here");
-
+    } */
+    const emailAccounts = await User.find();
     const listUsersResult = await firebaseAdmin.auth().listUsers();
-    const users = listUsersResult.users;
+    let firebaseAccounts = listUsersResult.users;
+    firebaseAccounts = [...firebaseAccounts, ...emailAccounts];
     // Send the users as a JSON response
-    res.status(200).json({ firebaseAccounts: users });
+    res.status(200).json({ firebaseAccounts: firebaseAccounts });
   } catch (error) {
     console.error("Error listing users:", error);
 
