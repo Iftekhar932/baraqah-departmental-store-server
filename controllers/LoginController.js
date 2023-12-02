@@ -14,7 +14,6 @@ const LoginController = async (req, res) => {
     if (!match) {
       return res.status(401).send({ msg: "Invalid Password" });
     }
-    console.log(userInfo[0].role, "line17");
     // jwt sign
     const accessToken = JWT.sign(
       { email: email, role: userInfo[0].role },

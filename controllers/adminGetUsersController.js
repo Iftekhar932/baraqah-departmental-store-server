@@ -4,7 +4,6 @@ const firebaseAdmin = require("../firebase/firebaseAdmin.js"); // Adjust the pat
 
 const adminGetUsersController = async (req, res) => {
   try {
-    // todo UNCOMMENT IT
     if (req.user.role !== "admin") {
       return res.sendStatus(403); //forbidden
     }
