@@ -9,7 +9,6 @@ const authenticateJWT = (req, res, next) => {
     // for cookies
     /* const token = req.cookies.access_token;
     console.log("✨ 🌟  authenticateJWT  token:", token); */
-
     JWT.verify(token, process.env.SECRET_KEY, (err, user) => {
       if (err) {
         console.log(
@@ -20,11 +19,12 @@ const authenticateJWT = (req, res, next) => {
       }
 
       req.user = user;
-      console.log("✨ 🌟  JWT.verify  User:", user);
+      // console.log("✨ 🌟  JWT.verify  User:", user);
       next();
     });
   } catch (error) {
     console.log("✨ 🌟  authenticateJWT  error line23 ❌❌❌", error, "❌❌❌");
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 module.exports = authenticateJWT;

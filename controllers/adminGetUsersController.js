@@ -4,15 +4,17 @@ const firebaseAdmin = require("../firebase/firebaseAdmin.js"); // Adjust the pat
 
 const adminGetUsersController = async (req, res) => {
   try {
-    /* if (req.user.role !== "admin") {
+    // todo UNCOMMENT IT
+    if (req.user.role !== "admin") {
       return res.sendStatus(403); //forbidden
-    } */
+    }
     const emailAccounts = await User.find();
     const listUsersResult = await firebaseAdmin.auth().listUsers();
     let firebaseAccounts = listUsersResult.users;
-    firebaseAccounts = [...firebaseAccounts, ...emailAccounts];
+    allUsers = [...firebaseAccounts, ...emailAccounts];
+
     // Send the users as a JSON response
-    res.status(200).json({ firebaseAccounts: firebaseAccounts });
+    res.status(200).json({ allUsers });
   } catch (error) {
     console.error("Error listing users:", error);
 
