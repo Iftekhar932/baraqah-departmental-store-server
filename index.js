@@ -35,7 +35,6 @@ app.use(
   require("./controllers/tokenGeneratorController")
 ); // this one's for google or any other sign in method of firebase used in client side's "useFirebase" hook
 
-// todo UNCOMMENT IT LATER
 app.use(authenticateJWT);
 
 app.use("/", require("./routes/api/adminGetUsers.js"));
@@ -44,7 +43,7 @@ app.use("/", require("./routes/api/singleProduct")); // this one has param "prod
 app.use("/", require("./routes/api/product")); // this one has param "category"
 app.use("/", require("./routes/api/allProducts.js"));
 
-app.use("/", require("./routes/api/users.js"));
+// app.use("/", require("./routes/api/users.js")); // ? not needed right now
 
 app.listen(port, () => {
   console.log(`RUNNING ON PORT 👉👉 ${port}`);
