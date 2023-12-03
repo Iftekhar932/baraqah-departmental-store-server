@@ -3,10 +3,8 @@ const JWT = require("jsonwebtoken");
 const authenticateJWT = (req, res, next) => {
   try {
     // for localStorage bearer token
-    console.log(req.headers.Authorization);
     const headersToken = req.headers.Authorization || req.headers.authorization;
     const token = headersToken?.split(" ")[1];
-    console.log(token, "🍒🍒");
 
     JWT.verify(token, process.env.SECRET_KEY, (err, user) => {
       if (err) {
