@@ -18,15 +18,6 @@ const authenticateJWT = require("./middlewares/authenticateJWT.js");
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
-/* app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  
-  next();
-});
- */
-
 app.use("/register", require("./controllers/registerController.js"));
 app.use("/login", require("./controllers/loginController.js"));
 
@@ -43,8 +34,9 @@ app.use("/", require("./routes/api/singleProduct")); // this one has param "prod
 app.use("/", require("./routes/api/product")); // this one has param "category"
 app.use("/", require("./routes/api/allProducts.js"));
 
-// app.use("/", require("./routes/api/users.js")); // ? not needed right now
+app.use("/", require("./routes/api/adminUserDeletion.js"));
 
+// app.use("/", require("./routes/api/users.js")); // ? not needed right now
 app.listen(port, () => {
   console.log(`RUNNING ON PORT 👉👉 ${port}`);
 });

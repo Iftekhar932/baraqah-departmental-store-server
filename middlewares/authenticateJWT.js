@@ -5,10 +5,8 @@ const authenticateJWT = (req, res, next) => {
     // for localStorage bearer token
     const headersToken = req.headers.Authorization || req.headers.authorization;
     const token = headersToken?.split(" ")[1];
+    console.log(token, "🍒🍒");
 
-    // for cookies
-    /* const token = req.cookies.access_token;
-    console.log("✨ 🌟  authenticateJWT  token:", token); */
     JWT.verify(token, process.env.SECRET_KEY, (err, user) => {
       if (err) {
         console.log(
