@@ -29,12 +29,11 @@ app.use(
 app.use(authenticateJWT);
 
 app.use("/", require("./routes/api/adminGetUsers.js"));
+app.use("/", require("./routes/api/adminUserDeletion.js"));
 
 app.use("/", require("./routes/api/singleProduct")); // this one has param "productId"
 app.use("/", require("./routes/api/product")); // this one has param "category"
 app.use("/", require("./routes/api/allProducts.js"));
-
-app.use("/", require("./routes/api/adminUserDeletion.js"));
 
 // app.use("/", require("./routes/api/users.js")); // ? not needed right now
 app.listen(port, () => {
