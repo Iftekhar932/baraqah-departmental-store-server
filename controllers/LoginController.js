@@ -19,16 +19,16 @@ const LoginController = async (req, res) => {
       { email: email, role: userInfo[0].role },
       process.env.SECRET_KEY,
       {
-        expiresIn: "15m",
+        expiresIn: "10s",
       }
     );
-
+    /* 
     res.cookie("access_token", accessToken, {
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: false,
       secure: false,
       sameSite: "none",
-    });
+    }); */
 
     res.status(200).send({ accessToken, email, role: userInfo[0].role });
   } catch (error) {

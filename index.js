@@ -13,6 +13,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const authenticateJWT = require("./middlewares/authenticateJWT.js");
+const refreshToken = require("./middlewares/refreshToken.js");
 
 //  mongoose schema and database connection
 const connectDB = require("./database/mongooseDB.js");
@@ -26,6 +27,7 @@ app.use(
   require("./controllers/tokenGeneratorController")
 ); // this one's for google or any other sign in method of firebase used in client side's "useFirebase" hook
 
+app.use(refreshToken);
 app.use(authenticateJWT);
 
 app.use("/", require("./routes/api/adminGetUsers.js"));
