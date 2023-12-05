@@ -5,18 +5,21 @@ const JWT = require("jsonwebtoken");
 const LoginController = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const userInfo = await User.find({ email: email }); // getting user from db for password
-    if (userInfo.length <= 0)
+    const userInfo = await User.findOne({ email: email }); // getting user from db for password
+    console.log("✨ 🌟  LoginController  userInfo:", userInfo);
+    /* if (userInfo.length <= 0)
+      return res.status(401).send({ msg: "Credentials doesn't match" }); */
+    if (!userInfo)
       return res.status(401).send({ msg: "Credentials doesn't match" });
 
     // matching password with database password
-    const match = await bcrypt.compare(password, userInfo[0].password);
+    const match = await bcrypt.compare(password, userInfo?.password);
     if (!match) {
       return res.status(401).send({ msg: "Invalid Password" });
     }
     // jwt sign
     const accessToken = JWT.sign(
-      { email: email, role: userInfo[0].role },
+      { email: email, role: userInfo.role },
       process.env.SECRET_KEY,
       {
         expiresIn: "15m",
@@ -29,7 +32,7 @@ const LoginController = async (req, res) => {
         expiresIn: "1d",
       }
     );
-    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlmdGVraGFyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDE3ODc3MDYsImV4cCI6MTcwMTg3NDEwNn0.Zy4DMCTqGb9yor2BDQaGagBS3GSeGBqGhuPAdVwM0aw
+
     // Save the refresh token to the user document
     userInfo.refreshToken = refreshToken;
     await userInfo.save();
@@ -39,7 +42,7 @@ const LoginController = async (req, res) => {
     // ! NEEDS TESTING
     // ! NEEDS TESTING
     // ! NEEDS TESTING
-    res.status(200).send({ accessToken, email, role: userInfo[0].role });
+    res.status(200).send({ accessToken, email, role: userInfo.role });
   } catch (error) {
     console.log("✨ 🌟  LoginController  error: customRef:line22", error);
   }
