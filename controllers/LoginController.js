@@ -5,7 +5,7 @@ const JWT = require("jsonwebtoken");
 const LoginController = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const userInfo = await User.find({ email: email }); // getting user from db for password
+    const userInfo = await User.findOne({ email: email }); // getting user from db for password
     if (userInfo.length <= 0)
       return res.status(401).send({ msg: "Credentials doesn't match" });
 
@@ -22,15 +22,23 @@ const LoginController = async (req, res) => {
         expiresIn: "15m",
       }
     );
+    const refreshToken = JWT.sign(
+      { email: email },
+      process.env.REFRESH_TOKEN_KEY,
+      {
+        expiresIn: "1d",
+      }
+    );
 
-    res.cookie("access_token", accessToken, {
-      maxAge: 24 * 60 * 60 * 1000,
-      httpOnly: false,
-      secure: false,
-      sameSite: "none",
-    });
-
-    res.status(200).send({ accessToken, email });
+    // Save the refresh token to the user document
+    userInfo.refreshToken = refreshToken;
+    await userInfo.save();
+    ! NEEDS TESTING
+    // ! NEEDS TESTING
+    // ! NEEDS TESTING
+    // ! NEEDS TESTING
+    // ! NEEDS TESTING
+    res.status(200).send({ accessToken, email, role: userInfo[0].role });
   } catch (error) {
     console.log("✨ 🌟  LoginController  error: customRef:line22", error);
   }

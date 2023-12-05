@@ -13,19 +13,11 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const authenticateJWT = require("./middlewares/authenticateJWT.js");
+const refreshToken = require("./middlewares/refreshToken.js");
 
 //  mongoose schema and database connection
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
-
-/* app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  
-  next();
-});
- */
 
 app.use("/register", require("./controllers/registerController.js"));
 app.use("/login", require("./controllers/loginController.js"));
@@ -35,16 +27,17 @@ app.use(
   require("./controllers/tokenGeneratorController")
 ); // this one's for google or any other sign in method of firebase used in client side's "useFirebase" hook
 
+app.use(refreshToken);
 app.use(authenticateJWT);
 
 app.use("/", require("./routes/api/adminGetUsers.js"));
+app.use("/", require("./routes/api/adminUserDeletion.js"));
 
 app.use("/", require("./routes/api/singleProduct")); // this one has param "productId"
 app.use("/", require("./routes/api/product")); // this one has param "category"
 app.use("/", require("./routes/api/allProducts.js"));
 
 // app.use("/", require("./routes/api/users.js")); // ? not needed right now
-
 app.listen(port, () => {
   console.log(`RUNNING ON PORT 👉👉 ${port}`);
 });
