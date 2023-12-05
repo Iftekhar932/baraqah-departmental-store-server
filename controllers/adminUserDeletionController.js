@@ -1,4 +1,5 @@
 const User = require("../Schemas/UserSchema");
+const admin = require("../firebase/firebaseAdmin");
 
 const adminUserDeletionController = async (req, res) => {
   try {
@@ -9,16 +10,20 @@ const adminUserDeletionController = async (req, res) => {
       await admin.auth().deleteUser(id);
     }
     if (flag == "_id") {
-      const user = await User.deleteOne({ _id: id }).exec();
+      const findUser = await User.findOne({ _id: id }).exec();
       console.log(
-        "🚀 ~ file: adminUserDeletionController.js:11 ~ adminUserDeletionController ~ user:",
-        user
+        "🚀 ~ file: adminUserDeletionController.js:22 ~ adminUserDeletionController ~ findUser:",
+        findUser
       );
+
+      findUser.role == "admin"
+        ? console.log("this one")
+        : await User.deleteOne({ _id: id }).exec();
     }
     console.log("Successfully deleted user");
   } catch (error) {
     console.log(
-      "🚀 ~ file: adminUserDeletionController.js:5 ~ adminUserDeletionController ~ error:",
+      "🚀 ~ file: adminUserDeletionController.js:22 ~ adminUserDeletionController ~ error:",
       error
     );
   }

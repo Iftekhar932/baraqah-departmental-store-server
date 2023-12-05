@@ -30,7 +30,7 @@ const LoginController = async (req, res) => {
       sameSite: "none",
     });
 
-    res.status(200).send({ accessToken, email });
+    res.status(200).send({ accessToken, email, role: userInfo[0].role });
   } catch (error) {
     console.log("✨ 🌟  LoginController  error: customRef:line22", error);
   }
