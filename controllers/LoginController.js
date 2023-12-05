@@ -5,7 +5,7 @@ const JWT = require("jsonwebtoken");
 const LoginController = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const userInfo = await User.findOne({ email: email }); // getting user from db for password
+    const userInfo = await User.find({ email: email }); // getting user from db for password
     if (userInfo.length <= 0)
       return res.status(401).send({ msg: "Credentials doesn't match" });
 
@@ -29,11 +29,12 @@ const LoginController = async (req, res) => {
         expiresIn: "1d",
       }
     );
-
+    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlmdGVraGFyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDE3ODc3MDYsImV4cCI6MTcwMTg3NDEwNn0.Zy4DMCTqGb9yor2BDQaGagBS3GSeGBqGhuPAdVwM0aw
     // Save the refresh token to the user document
     userInfo.refreshToken = refreshToken;
     await userInfo.save();
-    ! NEEDS TESTING
+
+    // ! NEEDS TESTING
     // ! NEEDS TESTING
     // ! NEEDS TESTING
     // ! NEEDS TESTING

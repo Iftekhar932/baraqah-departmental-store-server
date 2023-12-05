@@ -14,8 +14,17 @@ const RegisterController = async (req, res) => {
     // hashing password
     const hashedPWD = await bcrypt.hash(password, 10);
 
-    // Save the user to the database
-    await User.create({ email: email, password: hashedPWD });
+    // refreshToken creation
+    const refreshToken = JWT.sign(
+      { email: email },
+      process.env.REFRESH_TOKEN_KEY,
+      {
+        expiresIn: "1d",
+      }
+    );
+
+    // Save the user to the database with credentials
+    await User.create({ email: email, password: hashedPWD, refreshToken });
 
     res.status(201).send({ msg: "User account created" });
   } catch (error) {
