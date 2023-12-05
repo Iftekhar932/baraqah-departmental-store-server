@@ -9,8 +9,9 @@ const authenticateJWT = (req, res, next) => {
     JWT.verify(token, process.env.SECRET_KEY, (err, user) => {
       if (err) {
         console.log(
-          "🚀 ~ file: authenticateJWT.js:19 ~ JWT.verify ~ err:",
-          err
+          "❌❌❌❌ ~ file: authenticateJWT.js:19 ~ JWT.verify ~ err:",
+          err,
+          "❌❌❌❌"
         );
         return res.status(403).json("token is not valid");
       }

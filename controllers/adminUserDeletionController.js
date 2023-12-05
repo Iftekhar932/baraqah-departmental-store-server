@@ -1,10 +1,9 @@
 const User = require("../Schemas/UserSchema");
 
-test it
-//!test it
 const adminUserDeletionController = async (req, res) => {
   try {
     const id = req.body.userIdToDelete;
+    const flag = req.body.flag;
 
     if (flag == "uid") {
       await admin.auth().deleteUser(id);
