@@ -12,6 +12,8 @@ const LoginController = async (req, res) => {
     if (!userInfo)
       return res.status(401).send({ msg: "Credentials doesn't match" });
 
+    req.body.user = userInfo; // ! needs testing, related to refreshToken.js
+
     // matching password with database password
     const match = await bcrypt.compare(password, userInfo?.password);
     if (!match) {
