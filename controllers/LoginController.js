@@ -37,11 +37,6 @@ const LoginController = async (req, res) => {
     userInfo.refreshToken = refreshToken;
     await userInfo.save();
 
-    // ! NEEDS TESTING
-    // ! NEEDS TESTING
-    // ! NEEDS TESTING
-    // ! NEEDS TESTING
-    // ! NEEDS TESTING
     res.status(200).send({ accessToken, email, role: userInfo.role });
   } catch (error) {
     console.log("✨ 🌟  LoginController  error: customRef:line22", error);
