@@ -13,7 +13,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const authenticateJWT = require("./middlewares/authenticateJWT.js");
-const refreshToken = require("./middlewares/refreshToken.js");
+const refreshToken = require("./routes/api/refresh.js");
 
 //  mongoose schema and database connection
 const connectDB = require("./database/mongooseDB.js");

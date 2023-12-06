@@ -10,10 +10,11 @@ const authenticateJWT = (req, res, next) => {
       if (err) {
         console.log(
           "❌❌❌❌ ~ file: authenticateJWT.js:19 ~ JWT.verify ~ err:",
-          err,
+          err.name,
+          err.message,
           "❌❌❌❌"
         );
-        return res.status(403).json("token is not valid");
+        return res.status(403).json({ msg: err.message });
       }
 
       req.user = user;

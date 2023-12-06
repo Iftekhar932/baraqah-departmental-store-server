@@ -6,20 +6,17 @@ const LoginController = async (req, res) => {
   const { email, password } = req.body;
   try {
     const userInfo = await User.findOne({ email: email }); // getting user from db for password
-    console.log("✨ 🌟  LoginController  userInfo:", userInfo);
     /* if (userInfo.length <= 0)
       return res.status(401).send({ msg: "Credentials doesn't match" }); */
     if (!userInfo)
       return res.status(401).send({ msg: "Credentials doesn't match" });
-
-    req.body.user = userInfo; // ! needs testing, related to refreshToken.js
 
     // matching password with database password
     const match = await bcrypt.compare(password, userInfo?.password);
     if (!match) {
       return res.status(401).send({ msg: "Invalid Password" });
     }
-    // jwt sign
+    // jwt sign access token
     const accessToken = JWT.sign(
       { email: email, role: userInfo.role },
       process.env.SECRET_KEY,
@@ -27,6 +24,7 @@ const LoginController = async (req, res) => {
         expiresIn: "15m",
       }
     );
+    // jwt sign refresh token
     const refreshToken = JWT.sign(
       { email: email },
       process.env.REFRESH_TOKEN_KEY,
