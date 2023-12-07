@@ -16,6 +16,7 @@ const LoginController = async (req, res) => {
     if (!match) {
       return res.status(401).send({ msg: "Invalid Password" });
     }
+
     // jwt sign access token
     const accessToken = JWT.sign(
       { email: email, role: userInfo.role },
@@ -24,6 +25,7 @@ const LoginController = async (req, res) => {
         expiresIn: "15m",
       }
     );
+
     // jwt sign refresh token
     const refreshToken = JWT.sign(
       { email: email },
@@ -33,7 +35,7 @@ const LoginController = async (req, res) => {
       }
     );
 
-    // Save the refresh token to the user document
+    // update the refreshToken that user has on storage
     userInfo.refreshToken = refreshToken;
     await userInfo.save();
 
