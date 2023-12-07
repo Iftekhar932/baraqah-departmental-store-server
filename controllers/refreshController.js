@@ -1,9 +1,9 @@
 const JWT = require("jsonwebtoken");
 const User = require("../Schemas/UserSchema");
 
-// !logic ready yet to be tested
-
 const refreshTokenController = async (req, res, next) => {
+  //!  if i can get the user, but how?
+
   try {
     const foundUser = await User.findOne({ email });
     console.log(foundUser.refreshToken);
