@@ -2,7 +2,6 @@ const JWT = require("jsonwebtoken");
 const User = require("../Schemas/UserSchema");
 
 // !logic ready yet to be tested
-created error with this line just to help find this error next time app is run
 
 const refreshTokenController = async (req, res, next) => {
   try {
