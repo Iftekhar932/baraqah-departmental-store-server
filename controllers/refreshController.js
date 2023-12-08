@@ -1,85 +1,93 @@
 const JWT = require("jsonwebtoken");
 const User = require("../Schemas/UserSchema");
-
 const refreshTokenController = async (req, res, next) => {
   try {
-    const { email } = req.body;
-    const foundUser = await User.findOne({ email });
-    console.log(foundUser.refreshToken);
-    let refreshToken = foundUser?.refreshToken || ""; // last refreshToken
+    const { email } = req.body || req.headers;
 
-    // if no refreshToken found generate and provide
+    if (!email) {
+      return res.status(403).json({ msg: "Not logged in" });
+    }
+
+    const foundUser = await User.findOne({ email });
+
+    if (!foundUser) {
+      return res.status(403).json({ msg: "No user found" });
+    }
+
+    // ! TESTING NEEDED IN THIS NEW CODE, THIS WHOLE FILE and also during login jwt has expiry of 10s change it if u want, more comments in "routes.js"
+    // ! TESTING NEEDED IN THIS NEW CODE, THIS WHOLE FILE and also during login jwt has expiry of 10s change it if u want, more comments in "routes.js"
+    // ! TESTING NEEDED IN THIS NEW CODE, THIS WHOLE FILE and also during login jwt has expiry of 10s change it if u want, more comments in "routes.js"
+    // ! TESTING NEEDED IN THIS NEW CODE, THIS WHOLE FILE and also during login jwt has expiry of 10s change it if u want, more comments in "routes.js"
+
+    let refreshToken = foundUser?.refreshToken || "";
+
     if (!refreshToken) {
       return res.status(403).json({ msg: "No token found" });
     }
 
-    if (refreshToken) {
+    try {
       let refreshTokenVerification = JWT.verify(
         refreshToken,
-        process.env.REFRESH_TOKEN_KEY,
-        function (err, decoded) {
-          // if expired then generate new refreshToken
-          if ((err.name = "TokenExpiredError")) {
-            console.log(
-              "REFRESH_TOKEN_CONTROLLER:",
-              err.name,
-              "❌❌❌",
-              err.message
-            );
-
-            // regenerating refreshToken
-            refreshToken = JWT.sign(
-              { email: email },
-              process.env.REFRESH_TOKEN_KEY,
-              {
-                expiresIn: "1d",
-              }
-            );
-          } else {
-            res.status(403).json({ msg: err.message });
-          }
-        }
+        process.env.REFRESH_TOKEN_KEY
       );
+
+      // If refreshToken is expired, generate a new refreshToken
+      if (refreshTokenVerification.exp < Date.now() / 1000) {
+        refreshToken = JWT.sign(
+          { email: email },
+          process.env.REFRESH_TOKEN_KEY,
+          {
+            expiresIn: "1d",
+          }
+        );
+
+        // Update the refreshToken in the user document
+        foundUser.refreshToken = refreshToken;
+        await foundUser.save();
+      }
+    } catch (err) {
+      console.log("REFRESH_TOKEN_CONTROLLER:", err.name, "❌❌❌", err.message);
+      return res.status(403).json({ msg: err.message });
     }
 
-    // update the refreshToken that user has on storage
-    foundUser.refreshToken = refreshToken;
-    await foundUser.save();
+    // Check for the existence of accessToken
+    let accessToken = req.headers.authorization;
 
-    let accessToken = "";
     if (accessToken) {
-      let accessTokenVerification = JWT.verify(
-        accessToken,
-        process.env.SECRET_KEY,
-        function (err, decoded) {
-          // if expired then generate new accessToken
-          if (err.name == "TokenExpiredError") {
-            console.log(
-              "ACCESS_TOKEN_CONTROLLER:",
-              err.name,
-              "❌❌❌",
-              err.message
-            );
+      try {
+        let accessTokenVerification = JWT.verify(
+          accessToken,
+          process.env.SECRET_KEY
+        );
 
-            // regenerating refreshToken then using next()
-            accessToken = JWT.sign(
-              { email: email, role: foundUser.role },
-              process.env.SECRET_KEY,
-              {
-                expiresIn: "1d",
-              }
-            );
-            next();
-          } else {
-            // if accessToken is there and not expired then got to next middleware
-            next();
-          }
+        // If accessToken is expired, generate a new accessToken
+        if (accessTokenVerification.exp < Date.now() / 1000) {
+          accessToken = JWT.sign(
+            { email: email, role: foundUser.role },
+            process.env.SECRET_KEY,
+            {
+              expiresIn: "1d",
+            }
+          );
+
+          // Set the new accessToken in the request headers
+          req.headers.authorization = accessToken;
         }
-      );
+      } catch (err) {
+        console.log(
+          "ACCESS_TOKEN_CONTROLLER:",
+          err.name,
+          "❌❌❌",
+          err.message
+        );
+      }
     }
+
+    // Move to the next middleware
+    next();
   } catch (error) {
-    console.log("✨ 🌟  refreshTokenController  error:", error);
-    res.status(500).json({ msg: "server error" });
+    console.log("✨ 🌟 refreshTokenController error:", error);
+    res.status(500).json({ msg: "Server error" });
   }
 };
 
