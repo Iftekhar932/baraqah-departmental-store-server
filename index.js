@@ -11,7 +11,6 @@ app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
-    exposedHeaders: ["new-access-token"],
   })
 );
 // app.use(cors(corsOptions));

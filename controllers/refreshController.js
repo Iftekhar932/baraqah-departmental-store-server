@@ -67,9 +67,7 @@ const refreshTokenController = async (req, res, next) => {
               );
               // Set the new accessToken in the request headers
               req.headers.authorization = `bearer ${accessToken}`;
-
-              res.setHeader("new-access-token", accessToken);
-              console.log("Response Headers:", res.getHeaders());
+              res.json({ accessToken });
               next();
             }
           }
