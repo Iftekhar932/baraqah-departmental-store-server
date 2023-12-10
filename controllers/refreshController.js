@@ -29,7 +29,7 @@ const refreshTokenController = async (req, res, next) => {
       let refreshTokenVerification = JWT.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_KEY
-      );
+      ); // ✅
 
       // If refreshToken is expired, generate a new refreshToken
       if (refreshTokenVerification.exp < Date.now() / 1000) {
@@ -46,47 +46,45 @@ const refreshTokenController = async (req, res, next) => {
         await foundUser.save();
       }
     } catch (err) {
-      console.log("REFRESH_TOKEN_CONTROLLER:", err.name, "❌❌❌", err.message);
+      console.log("REFRESH_TOKEN_CONTROLLER: LINE49", err.name, err.message);
       return res.status(403).json({ msg: err.message });
     }
 
     // Check for the existence of accessToken
-    let accessToken = req.headers.authorization;
+    let headers = req.headers.authorization || req.headers.Authorization;
+    let accessToken = headers.split(" ")[1]; // ✅
 
     if (accessToken) {
-      try {
-        let accessTokenVerification = JWT.verify(
-          accessToken,
-          process.env.SECRET_KEY
-        );
+      let accessTokenVerification = JWT.verify(
+        accessToken,
+        process.env.SECRET_KEY,
+        function (err, decoded) {
+          if (err) {
+            console.log("REFRESHCONTROLLER.js:63:", err?.name, err?.message);
+            if (err.name == "TokenExpiredError") {
+              console.log("expired renewing 👈👈👈");
+              accessToken = JWT.sign(
+                { email: email, role: foundUser.role },
+                process.env.SECRET_KEY,
+                {
+                  expiresIn: "1d",
+                }
+              );
+              // Set the new accessToken in the request headers
+              req.headers.authorization = `bearer ${accessToken}`;
 
-        // If accessToken is expired, generate a new accessToken
-        if (accessTokenVerification.exp < Date.now() / 1000) {
-          accessToken = JWT.sign(
-            { email: email, role: foundUser.role },
-            process.env.SECRET_KEY,
-            {
-              expiresIn: "1d",
+              res.setHeader("new-access-token", accessToken);
+              next();
             }
-          );
-
-          // Set the new accessToken in the request headers
-          req.headers.authorization = accessToken;
+          }
         }
-      } catch (err) {
-        console.log(
-          "ACCESS_TOKEN_CONTROLLER:",
-          err.name,
-          "❌❌❌",
-          err.message
-        );
-      }
+      );
     }
 
-    // Move to the next middleware
+    // Move to the next middleware if old accessToken is not expired
     next();
   } catch (error) {
-    console.log("✨ 🌟 refreshTokenController error:", error);
+    console.log("✨ 🌟 REFRESHTOKENCONTROLLER ERROR LINE-89:", error);
     res.status(500).json({ msg: "Server error" });
   }
 };

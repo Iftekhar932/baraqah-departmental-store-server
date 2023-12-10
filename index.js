@@ -28,6 +28,7 @@ app.use(
 ); // this one's for google or any other sign in method of firebase used in client side's "useFirebase" hook
 
 app.use("/", refreshToken);
+
 app.use(authenticateJWT);
 
 app.use("/", require("./routes/api/adminGetUsers.js"));
