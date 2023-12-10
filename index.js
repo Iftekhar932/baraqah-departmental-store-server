@@ -7,7 +7,13 @@ const cookieParser = require("cookie-parser");
 // const corsOptions = require("./config/corsOptions.js");
 
 // middleware
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+    exposedHeaders: ["new-access-token"],
+  })
+);
 // app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));

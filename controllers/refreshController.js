@@ -14,11 +14,6 @@ const refreshTokenController = async (req, res, next) => {
       return res.status(403).json({ msg: "No user found" });
     }
 
-    // ! TESTING NEEDED IN THIS NEW CODE, THIS WHOLE FILE and also during login jwt has expiry of 10s change it if u want, more comments in "routes.js"
-    // ! TESTING NEEDED IN THIS NEW CODE, THIS WHOLE FILE and also during login jwt has expiry of 10s change it if u want, more comments in "routes.js"
-    // ! TESTING NEEDED IN THIS NEW CODE, THIS WHOLE FILE and also during login jwt has expiry of 10s change it if u want, more comments in "routes.js"
-    // ! TESTING NEEDED IN THIS NEW CODE, THIS WHOLE FILE and also during login jwt has expiry of 10s change it if u want, more comments in "routes.js"
-
     let refreshToken = foundUser?.refreshToken || "";
 
     if (!refreshToken) {
@@ -74,6 +69,7 @@ const refreshTokenController = async (req, res, next) => {
               req.headers.authorization = `bearer ${accessToken}`;
 
               res.setHeader("new-access-token", accessToken);
+              console.log("Response Headers:", res.getHeaders());
               next();
             }
           }
