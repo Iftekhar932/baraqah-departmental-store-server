@@ -3,6 +3,10 @@ const User = require("../Schemas/UserSchema");
 const refreshTokenController = async (req, res, next) => {
   try {
     const { email } = req.body || req.headers;
+    console.log(
+      "🚀 ~ file: refreshController.js:6 ~ refreshTokenController ~ email:",
+      email
+    );
 
     if (!email) {
       return res.status(403).json({ msg: "Not logged in" });

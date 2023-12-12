@@ -1,5 +1,5 @@
 const Product = require("../Schemas/ProductSchema");
-
+/* GET PRODUCTS CATEGORY WISE */
 const productController = async (req, res) => {
   try {
     const products = await Product.find();
