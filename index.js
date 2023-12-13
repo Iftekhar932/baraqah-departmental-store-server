@@ -14,13 +14,14 @@ app.use(
   })
 );
 // app.use(cors(corsOptions));
+
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const authenticateJWT = require("./middlewares/authenticateJWT.js");
 const refreshToken = require("./routes/api/refresh.js");
 
-//  mongoose schema and database connection
+//  mongoose database connection
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
@@ -44,6 +45,7 @@ app.use("/", require("./routes/api/product")); // this one has param "category"
 app.use("/", require("./routes/api/allProducts.js"));
 
 // app.use("/", require("./routes/api/users.js")); // ? not needed right now
+
 app.listen(port, () => {
   console.log(`RUNNING ON PORT 👉👉 ${port}`);
 });
