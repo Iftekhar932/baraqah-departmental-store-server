@@ -10,7 +10,7 @@ const refreshTokenController = async (req, res, next) => {
 
     // if no refreshToken found generate and provide
     if (!refreshToken) {
-      return res.status(403).json({ msg: "No token found" });
+      return res.status(403).json({ msg: "You are not logged in" });
     }
 
     if (refreshToken) {
