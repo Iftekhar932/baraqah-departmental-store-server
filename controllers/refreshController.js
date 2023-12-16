@@ -36,7 +36,7 @@ const refreshTokenController = async (req, res, next) => {
           { email: email },
           process.env.REFRESH_TOKEN_KEY,
           {
-            expiresIn: "1d",
+            expiresIn: "1m",
           }
         );
 
