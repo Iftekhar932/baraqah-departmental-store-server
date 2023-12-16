@@ -37,6 +37,7 @@ app.use("/", refreshToken);
 
 app.use(authenticateJWT);
 
+// admin APIs
 app.use("/", require("./routes/api/adminGetUsers.js"));
 app.use("/", require("./routes/api/adminUserDeletion.js"));
 
