@@ -4,16 +4,12 @@ const authenticateJWT = (req, res, next) => {
   try {
     // for localStorage bearer token
     const headersToken = req.headers.Authorization || req.headers.authorization;
+
     const token = headersToken?.split(" ")[1];
 
     JWT.verify(token, process.env.SECRET_KEY, (err, user) => {
       if (err) {
-        console.log(
-          "❌❌❌❌ ~ file: authenticateJWT.js:19 ~ JWT.verify ~ err:",
-          err.name,
-          err.message,
-          "❌❌❌❌"
-        );
+        console.log("AUTHENTICATEjWT -LINE-12", err.name, err.message);
         return res.status(403).json({ msg: err.message });
       }
 

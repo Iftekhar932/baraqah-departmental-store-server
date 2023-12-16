@@ -8,8 +8,10 @@ const adminGetUsersController = async (req, res) => {
       return res.sendStatus(403); //forbidden
     }
     const emailAccounts = await User.find();
+
     const listUsersResult = await firebaseAdmin.auth().listUsers();
     let firebaseAccounts = listUsersResult.users;
+
     allUsers = [...firebaseAccounts, ...emailAccounts];
 
     // Send the users as a JSON response

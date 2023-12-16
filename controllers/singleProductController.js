@@ -1,5 +1,5 @@
 const Product = require("../Schemas/ProductSchema");
-
+/* GET A PRODUCT WITH ID */
 const singleProductController = async (req, res) => {
   try {
     const products = await Product.find({ _id: req.params.productId });

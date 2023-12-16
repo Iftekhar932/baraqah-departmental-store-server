@@ -2,7 +2,7 @@ const JWT = require("jsonwebtoken");
 
 /* 
 this file is made to make sure if there is some other way to register or login in front end through firebase
-then they can call this api to generate a token 
+then they can call this api to generate a jwt token
 */
 
 const tokenGeneratorController = (req, res) => {
