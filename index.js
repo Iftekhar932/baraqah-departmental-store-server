@@ -27,6 +27,7 @@ connectDB();
 
 app.use("/register", require("./controllers/registerController.js"));
 app.use("/login", require("./controllers/loginController.js"));
+app.use("/passwordReset", require("./controllers/forgotPasswordController.js"));
 
 app.use(
   "/jsonWebAccessToken",
