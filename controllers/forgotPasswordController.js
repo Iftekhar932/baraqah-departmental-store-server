@@ -1,26 +1,22 @@
 const User = require("../Schemas/UserSchema");
+const bcrypt = require("bcrypt");
 
 /* PASSWORD RESET */
 const forgotPasswordController = async (req, res) => {
   const { email, password } = req.body;
-  console.log(
-    "🚀 ~ file: forgotPasswordController.js:6 ~ forgotPasswordController ~  email, password:",
-    email,
-    password
-  );
   try {
     // looking for user data and checking if the provided password matches the old one(that user thinks he forgot)
     const foundUser = await User.findOne({ email: email });
-    console.log(
-      "🚀 ~ file: forgotPasswordController.js:10 ~ forgotPasswordController ~ foundUser:",
-      foundUser
-    );
-    if (foundUser.password === password) {
-      return res.status(409).json("Matched with your forgotten password"); // conflict
+    const matched = await bcrypt.compare(password, foundUser.password);
+    if (matched) {
+      return res
+        .status(409)
+        .json({ msg: "Matched with your forgotten password" }); // conflict
     }
 
-    // replacing old password with the new password
-    foundUser.password = password;
+    // encrypting new password and replacing it with the new one
+    const hashedPassword = await bcrypt.hash(password, 10);
+    foundUser.password = hashedPassword;
     await foundUser.save();
 
     res.status(200).json({ msg: "Password changed, login now!" });
