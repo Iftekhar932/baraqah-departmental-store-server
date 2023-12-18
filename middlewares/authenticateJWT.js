@@ -10,7 +10,7 @@ const authenticateJWT = (req, res, next) => {
     JWT.verify(token, process.env.SECRET_KEY, (err, user) => {
       if (err) {
         console.log("AUTHENTICATEjWT -LINE-12", err.name, err.message);
-        return res.status(403).json({ msg: err.message });
+        return res.status(403).json({ msg: err.message, name: err.name });
       }
 
       req.user = user;
