@@ -3,10 +3,10 @@ const User = require("../Schemas/UserSchema");
 const refreshTokenController = async (req, res, next) => {
   try {
     const { email } = req.body || req.headers;
-    console.log(
+    /*  console.log(
       "🚀 ~ file: refreshController.js:6 ~ refreshTokenController ~ email:",
       email
-    );
+    ); */
 
     if (!email) {
       return res.status(403).json({ msg: "Not logged in" });
@@ -65,7 +65,7 @@ const refreshTokenController = async (req, res, next) => {
                 { email: email, role: foundUser.role },
                 process.env.SECRET_KEY,
                 {
-                  expiresIn: "1d",
+                  expiresIn: "10s",
                 }
               );
               // Set the new accessToken in the request headers

@@ -14,7 +14,6 @@ const authenticateJWT = (req, res, next) => {
       }
 
       req.user = user;
-      // console.log("✨ 🌟  JWT.verify  User:", user);
       next();
     });
   } catch (error) {

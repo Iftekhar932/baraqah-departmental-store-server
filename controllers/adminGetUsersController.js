@@ -4,8 +4,9 @@ const firebaseAdmin = require("../firebase/firebaseAdmin.js"); // Adjust the pat
 
 const adminGetUsersController = async (req, res) => {
   try {
+    // user is set in "authenticateJWT.js"
     if (req.user.role !== "admin") {
-      return res.sendStatus(403); //forbidden
+      return await res.sendStatus(403).json({ msg: "Only for admins" }); //forbidden
     }
     const emailAccounts = await User.find();
 
@@ -13,7 +14,6 @@ const adminGetUsersController = async (req, res) => {
     let firebaseAccounts = listUsersResult.users;
 
     allUsers = [...firebaseAccounts, ...emailAccounts];
-
     // Send the users as a JSON response
     res.status(200).json({ allUsers });
   } catch (error) {
