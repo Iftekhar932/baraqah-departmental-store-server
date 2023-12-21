@@ -1,6 +1,6 @@
 const User = require("../Schemas/UserSchema");
 
-// find all users
+/*  find all users */
 const usersController = async (req, res) => {
   try {
     const users = await User.find();

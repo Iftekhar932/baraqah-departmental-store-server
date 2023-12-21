@@ -19,7 +19,12 @@ const forgotPasswordController = async (req, res) => {
     foundUser.password = hashedPassword;
     await foundUser.save();
 
-    res.status(200).json({ msg: "Password changed, login now!" });
+    res
+      .status(200)
+      .json({
+        msg: "Password changed, login now!",
+        srvFile: "forgotPasswordController.js",
+      });
   } catch (error) {
     console.log(
       "🚀 ~ file: forgotPasswordController.js:6 ~ forgotPasswordController ~ error:",

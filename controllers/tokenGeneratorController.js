@@ -23,6 +23,6 @@ const tokenGeneratorController = (req, res) => {
     sameSite: "none",
   });
 
-  res.status(200).json(accessToken);
+  res.status(200).json({ accessToken, srvFile: "tokenGeneratorController.js" });
 };
 module.exports = tokenGeneratorController;

@@ -20,7 +20,9 @@ const adminUserDeletionController = async (req, res) => {
         ? console.log("this one")
         : await User.deleteOne({ _id: id }).exec();
     }
-    console.log("Successfully deleted user");
+    res
+      .send(200)
+      .json({ msg: "Deleted User", srvFile: "adminUserDeletionController.js" });
   } catch (error) {
     console.log(
       "🚀 ~ file: adminUserDeletionController.js:22 ~ adminUserDeletionController ~ error:",
