@@ -65,7 +65,7 @@ const refreshTokenController = async (req, res, next) => {
                 { email: email, role: foundUser.role },
                 process.env.SECRET_KEY,
                 {
-                  expiresIn: "4s",
+                  expiresIn: "15m",
                 }
               );
               // Set the new accessToken in the request headers
