@@ -39,7 +39,7 @@
     "id": 5,
     "name": "Eggs",
     "category": "Dairy",
-    "price": 0.0,
+    "price": 2.0,
     "unit": "dozen",
     "img": "https://i.ibb.co/HNhJV9b/eggs2.jpg",
     "categoryImg": "https://i.ibb.co/KKPqTF1/milk.png"
@@ -77,7 +77,7 @@
     "category": "Fish",
     "price": 7.99,
     "unit": "pound",
-    "img": "https://i.ibb.co/Z2Rv42X/trout.jpg",
+    "img": "https://i.ibb.co/2ycDVn3/trout.jpg",
     "categoryImg": "https://i.ibb.co/TT3rxZq/fish-1.png"
   },
   {
@@ -86,7 +86,7 @@
     "category": "Vegetables",
     "price": 1.99,
     "unit": "pound",
-    "img": "https://i.ibb.co/ypMXWf7/spinach.jpg",
+    "img": "https://i.ibb.co/bLV7b9h/spinach.jpg",
     "categoryImg": "https://i.ibb.co/FKpCk7Z/vegetables.png"
   },
   {
@@ -95,7 +95,7 @@
     "category": "Meat",
     "price": 3.99,
     "unit": "pound",
-    "img": "https://i.ibb.co/Nx27c5m/pork.jpg",
+    "img": "https://i.ibb.co/0CCYbjP/beef.jpg",
     "categoryImg": "https://i.ibb.co/98T7NSM/meat.png"
   },
   {
@@ -104,7 +104,7 @@
     "category": "Soda",
     "price": 1.99,
     "unit": "bottle",
-    "img": "https://i.ibb.co/Jc2tLrr/orange-juice.jpg",
+    "img": "https://i.ibb.co/p4128Zz/orange-juice.jpg",
     "categoryImg": "https://i.ibb.co/nzFTRg7/soda.png"
   },
   {
@@ -113,7 +113,7 @@
     "category": "Cake",
     "price": 14.99,
     "unit": "each",
-    "img": "https://i.ibb.co/3Nd4x3r/vanillacake.jpg",
+    "img": "https://i.ibb.co/b56bYTn/vanilla-cake.jpg",
     "categoryImg": "https://i.ibb.co/KLmWyPP/cake-slice.png"
   },
   {
@@ -122,7 +122,7 @@
     "category": "Fish",
     "price": 8.99,
     "unit": "pound",
-    "img": "https://i.ibb.co/Z2Rv42X/salmon.jpg",
+    "img": "https://i.ibb.co/bzxDtSm/salmon.jpg",
     "categoryImg": "https://i.ibb.co/TT3rxZq/fish-1.png"
   },
   {
@@ -131,7 +131,7 @@
     "category": "Vegetables",
     "price": 1.49,
     "unit": "pound",
-    "img": "https://i.ibb.co/ypMXWf7/broccoli.jpg",
+    "img": "https://i.ibb.co/crdmVSg/broccoli.jpg",
     "categoryImg": "https://i.ibb.co/FKpCk7Z/vegetables.png"
   },
   {
@@ -140,7 +140,7 @@
     "category": "Meat",
     "price": 9.99,
     "unit": "pound",
-    "img": "https://i.ibb.co/Nx27c5m/steak.jpg",
+    "img": "https://i.ibb.co/dgnPxR8/steak.jpg",
     "categoryImg": "https://i.ibb.co/98T7NSM/meat.png"
   },
   {
@@ -149,7 +149,7 @@
     "category": "Fish",
     "price": 5.99,
     "unit": "pound",
-    "img": "https://i.ibb.co/Jc2tLrr/tuna.jpg",
+    "img": "https://i.ibb.co/1QtFtf7/tuna-fish.jpg",
     "categoryImg": "https://i.ibb.co/TT3rxZq/fish-1.png"
   },
   {
@@ -158,7 +158,7 @@
     "category": "Soda",
     "price": 1.99,
     "unit": "bottle",
-    "img": "https://i.ibb.co/HNhJV9b/lemonade.jpg",
+    "img": "https://i.ibb.co/L1bsRTq/lemonade.jpg",
     "categoryImg": "https://i.ibb.co/nzFTRg7/soda.png"
   },
   {
@@ -167,7 +167,7 @@
     "category": "Cake",
     "price": 14.99,
     "unit": "each",
-    "img": "https://i.ibb.co/3Nd4x3r/chocolatecake.jpg",
+    "img": "https://i.ibb.co/54JyTML/chocolate-cake.jpg",
     "categoryImg": "https://i.ibb.co/KLmWyPP/cake-slice.png"
   },
   {
@@ -176,7 +176,7 @@
     "category": "Vegetables",
     "price": 0.99,
     "unit": "pound",
-    "img": "https://i.ibb.co/V3r73sK/carrots.jpg",
+    "img": "https://i.ibb.co/LSFm3vc/carrots.jpg",
     "categoryImg": "https://i.ibb.co/FKpCk7Z/vegetables.png"
   },
   {
@@ -185,7 +185,7 @@
     "category": "Meat",
     "price": 3.99,
     "unit": "pound",
-    "img": "https://i.ibb.co/Pg9FcwL/chicken.jpg",
+    "img": "https://i.ibb.co/SvyfYP5/chicken-fry.jpg",
     "categoryImg": "https://i.ibb.co/98T7NSM/meat.png"
   }
 ]

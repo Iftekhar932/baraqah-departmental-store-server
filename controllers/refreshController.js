@@ -19,32 +19,51 @@ const refreshTokenController = async (req, res, next) => {
 
     let refreshToken = foundUser?.refreshToken || "";
     if (!refreshToken) {
-      return res.status(403).json({ msg: "You are not logged in" });
+      return res.status(403).json({ msg: "You are not Signed up" });
     }
 
     try {
+      // If refreshToken is expired, generate a new refreshToken
       let refreshTokenVerification = JWT.verify(
         refreshToken,
-        process.env.REFRESH_TOKEN_KEY
+        process.env.REFRESH_TOKEN_KEY,
+        async function (err, decoded) {
+          console.log("🚀 ~ file: refreshController.js:30 ~ err:", err);
+          if (!err) {
+            refreshToken = JWT.sign(
+              { email: email },
+              process.env.REFRESH_TOKEN_KEY,
+              {
+                expiresIn: "1d",
+              }
+            );
+            // Update the refreshToken in the user document of mongoDB
+            foundUser.refreshToken = refreshToken;
+            await foundUser.save();
+          }
+        }
       );
-
       // If refreshToken is expired, generate a new refreshToken
-      if (refreshTokenVerification.exp < Date.now() / 1000) {
+      /*    if (refreshTokenVerification.exp) {
+        console.log(refreshTokenVerification.exp, "line33 🍎🍎🍎");
         refreshToken = JWT.sign(
           { email: email },
           process.env.REFRESH_TOKEN_KEY,
           {
             expiresIn: "1d",
           }
-        );
+        ); */
 
-        // Update the refreshToken in the user document of mongoDB
-        foundUser.refreshToken = refreshToken;
-        await foundUser.save();
-      }
+      // }
     } catch (err) {
-      console.log("REFRESH_TOKEN_CONTROLLER: LINE49", err.name, err.message);
-      return res.status(403).json({ msg: err.message });
+      console.log(
+        "REFRESH_TOKEN_CONTROLLER: LINE49",
+        "refreshToken expired " + err.name,
+        err.message
+      );
+      return res
+        .status(403)
+        .json({ msg: err?.message, name: err?.name, refreshTokenExpiry: true }); // if refreshToken is not renewed client-side will be aware of that with refreshTokenExpiry
     }
 
     // Check for the existence of accessToken
@@ -60,7 +79,7 @@ const refreshTokenController = async (req, res, next) => {
           if (err) {
             console.log("REFRESHCONTROLLER.js:63:", err?.name, err?.message);
             if (err.name == "TokenExpiredError") {
-              console.log("expired renewing 👈👈👈");
+              console.log("accessToken expired renewing 👈👈👈");
               accessToken = JWT.sign(
                 { email: email, role: foundUser.role },
                 process.env.SECRET_KEY,
@@ -68,8 +87,6 @@ const refreshTokenController = async (req, res, next) => {
                   expiresIn: "15m",
                 }
               );
-              // Set the new accessToken in the request headers
-              req.headers.authorization = `bearer ${accessToken}`;
               res
                 .status(200)
                 .json({ accessToken, srvFile: "refreshTokenController.js" });
