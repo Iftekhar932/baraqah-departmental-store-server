@@ -3,11 +3,6 @@ const User = require("../Schemas/UserSchema");
 const refreshTokenController = async (req, res, next) => {
   try {
     const { email } = req.body || req.headers;
-    /*  console.log(
-      "🚀 ~ file: refreshController.js:6 ~ refreshTokenController ~ email:",
-      email
-    ); */
-
     if (!email) {
       return res.status(403).json({ msg: "Not logged in" });
     }
@@ -22,48 +17,27 @@ const refreshTokenController = async (req, res, next) => {
       return res.status(403).json({ msg: "You are not Signed up" });
     }
 
+    //!ok the problem i'm facing now is
+    // ! when i comment out the res.status(200).json({accessToken:}) below get an error :
+    //!Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
     try {
       // If refreshToken is expired, generate a new refreshToken
       let refreshTokenVerification = JWT.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_KEY,
         async function (err, decoded) {
-          console.log("🚀 ~ file: refreshController.js:30 ~ err:", err);
-          if (!err) {
-            refreshToken = JWT.sign(
-              { email: email },
-              process.env.REFRESH_TOKEN_KEY,
-              {
-                expiresIn: "1d",
-              }
-            );
-            // Update the refreshToken in the user document of mongoDB
-            foundUser.refreshToken = refreshToken;
-            await foundUser.save();
+          if (err?.name == "TokenExpiredError") {
+            console.log("refreshController :30👁️👁️👁️ refreshToken expired");
           }
         }
       );
-      // If refreshToken is expired, generate a new refreshToken
-      /*    if (refreshTokenVerification.exp) {
-        console.log(refreshTokenVerification.exp, "line33 🍎🍎🍎");
-        refreshToken = JWT.sign(
-          { email: email },
-          process.env.REFRESH_TOKEN_KEY,
-          {
-            expiresIn: "1d",
-          }
-        ); */
-
-      // }
     } catch (err) {
       console.log(
-        "REFRESH_TOKEN_CONTROLLER: LINE49",
-        "refreshToken expired " + err.name,
-        err.message
+        "refreshController: LINE 44 👁️👁️👁️",
+        "refreshToken expired ",
+        err
       );
-      return res
-        .status(403)
-        .json({ msg: err?.message, name: err?.name, refreshTokenExpiry: true }); // if refreshToken is not renewed client-side will be aware of that with refreshTokenExpiry
+      // return res.status(500).json({ msg: "Server error" });
     }
 
     // Check for the existence of accessToken
@@ -72,25 +46,24 @@ const refreshTokenController = async (req, res, next) => {
 
     if (accessToken) {
       // if accessToken expires generate a new one
-      let accessTokenVerification = JWT.verify(
+      let accessTokenVerification = await JWT.verify(
         accessToken,
         process.env.SECRET_KEY,
-        function (err, decoded) {
+        async function (err, decoded) {
           if (err) {
-            console.log("REFRESHCONTROLLER.js:63:", err?.name, err?.message);
+            console.log("REFRESH_CONTROLLER.js:61:", err?.name, err?.message);
             if (err.name == "TokenExpiredError") {
-              console.log("accessToken expired renewing 👈👈👈");
+              // console.log("accessToken expired renewing 👈👈👈");
               accessToken = JWT.sign(
                 { email: email, role: foundUser.role },
                 process.env.SECRET_KEY,
                 {
-                  expiresIn: "15m",
+                  expiresIn: "1m",
                 }
               );
-              res
+              return await res
                 .status(200)
                 .json({ accessToken, srvFile: "refreshTokenController.js" });
-              next();
             }
           }
         }
@@ -100,8 +73,9 @@ const refreshTokenController = async (req, res, next) => {
     // Move to the next middleware if old accessToken is not expired
     next();
   } catch (error) {
-    console.log("✨ 🌟 REFRESHTOKENCONTROLLER ERROR LINE-89:", error);
-    res.status(500).json({ msg: "Server error" });
+    console.log("✨ 🌟 REFRESH_CONTROLLER ERROR LINE-83:", error);
+    // Consider returning a 500 response here instead of sending the status and then calling json.
+    return res.status(500);
   }
 };
 

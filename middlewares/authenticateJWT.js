@@ -7,10 +7,14 @@ const authenticateJWT = (req, res, next) => {
 
     const token = headersToken?.split(" ")[1];
 
-    JWT.verify(token, process.env.SECRET_KEY, (err, user) => {
+    JWT.verify(token, process.env.SECRET_KEY, async (err, user) => {
       if (err) {
         console.log("AUTHENTICATEjWT -LINE-12", err.name, err.message);
-        return res.status(403).json({ msg: err.message, name: err.name });
+        return await res.status(403).json({
+          msg: err.message,
+          name: err.name,
+          srvFile: "authenticateJWT.js",
+        });
       }
 
       req.user = user;
@@ -18,7 +22,7 @@ const authenticateJWT = (req, res, next) => {
     });
   } catch (error) {
     console.log("✨ 🌟  authenticateJWT  error line23 ❌❌❌", error, "❌❌❌");
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500);
   }
 };
 module.exports = authenticateJWT;
