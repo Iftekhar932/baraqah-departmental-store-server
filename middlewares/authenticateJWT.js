@@ -14,6 +14,7 @@ const authenticateJWT = (req, res, next) => {
           msg: err.message,
           name: err.name,
           srvFile: "authenticateJWT.js",
+          refreshTokenExpiry: req?body?.refreshTokenExpiry,
         });
       }
 
