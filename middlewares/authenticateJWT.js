@@ -1,6 +1,7 @@
 const JWT = require("jsonwebtoken");
 
 const authenticateJWT = (req, res, next) => {
+  const { refreshTokenExpiry } = req?.body;
   try {
     // for localStorage bearer token
     const headersToken = req.headers.Authorization || req.headers.authorization;
@@ -14,7 +15,7 @@ const authenticateJWT = (req, res, next) => {
           msg: err.message,
           name: err.name,
           srvFile: "authenticateJWT.js",
-          refreshTokenExpiry: req?body?.refreshTokenExpiry,
+          refreshTokenExpiry: refreshTokenExpiry,
         });
       }
 
