@@ -31,7 +31,7 @@ const LoginController = async (req, res) => {
       { email: email },
       process.env.REFRESH_TOKEN_KEY,
       {
-        expiresIn: "15s",
+        expiresIn: "1m",
       }
     );
 
