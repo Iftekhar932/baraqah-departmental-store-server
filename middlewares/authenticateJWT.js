@@ -3,15 +3,12 @@ const JWT = require("jsonwebtoken");
 const authenticateJWT = async (req, res, next) => {
   const { refreshTokenExpiry } = req.body;
 
-  console.log(
-    "🚀 ~ file: authenticateJWT.js:5 ~ authenticateJWT ~ refreshTokenExpiry:",
-    refreshTokenExpiry
-  );
   try {
     // for localStorage bearer token
     const headersToken = req.headers.Authorization || req.headers.authorization;
 
     const token = headersToken?.split(" ")[1];
+    // console.log("🍎🍎🍎11auth🍎🍎🍎");
 
     JWT.verify(token, process.env.SECRET_KEY, async (err, user) => {
       if (err) {
@@ -29,7 +26,7 @@ const authenticateJWT = async (req, res, next) => {
     });
   } catch (error) {
     console.log("✨ 🌟  authenticateJWT  error line23 ❌❌❌", error, "❌❌❌");
-    await res.status(500);
+    return await res.status(500);
   }
 };
 module.exports = authenticateJWT;

@@ -22,7 +22,7 @@ const LoginController = async (req, res) => {
       { email: email, role: userInfo.role },
       process.env.SECRET_KEY,
       {
-        expiresIn: "10s",
+        expiresIn: "5s",
       }
     );
 
@@ -31,7 +31,7 @@ const LoginController = async (req, res) => {
       { email: email },
       process.env.REFRESH_TOKEN_KEY,
       {
-        expiresIn: "1m",
+        expiresIn: "1d",
       }
     );
 

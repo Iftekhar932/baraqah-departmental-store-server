@@ -19,58 +19,77 @@ const refreshTokenController = async (req, res, next) => {
 
     let refreshTokenVerification;
     try {
-      //? If refreshToken is expired, generate a new refreshToken
+      // console.log("🍎🍎🍎 22 🍎🍎🍎");
+
+      //* If refreshToken is expired, generate a new refreshToken
       refreshTokenVerification = await JWT.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_KEY
       );
+      // console.log("🍎🍎🍎 29 🍎🍎🍎");
     } catch (err) {
       console.log(
-        "❌❌❌ refreshController: LINE 44 ",
-        err,
+        "❌❌❌ refreshController: LINE 29 ",
+        err?.name,
+        err?.message,
         "refreshToken expired ❌❌❌"
       );
-      req.body.refreshTokenExpiry = true;
-      next();
-      return await res
-        .status(403)
-        .json({ srvFile: "refreshController", refreshTokenExpiry: true });
+      if (err?.name == "TokenExpiredError") {
+        req.body.refreshTokenExpiry = true;
+        return await res
+          .status(403)
+          .json({ srvFile: "refreshController", refreshTokenExpiry: true });
+      } /*  else {
+        console.log("🍎🍎🍎41🍎🍎🍎");
+        // next();
+        // console.log("🍎🍎🍎43🍎🍎🍎");}
+      } */
     }
 
     //* Check for the existence of accessToken
     let headers = req.headers.authorization || req.headers.Authorization;
     let accessToken = headers.split(" ")[1];
 
-    console.log(refreshTokenVerification);
-
-    console.log("expiry check er age");
-    if (refreshTokenVerification?.exp >= Date.now()) console.log("age2");
-    console.log("check er pore");
+    console.log("✨ 🌟  refreshTokenController  accessToken:", accessToken);
+    console.log(refreshTokenVerification, "line 55");
+    if (refreshTokenVerification?.exp >= Date.now())
+      console.log(
+        "✨ 🌟  refreshTokenController  refreshTokenVerification?.exp >= Date.now():",
+        refreshTokenVerification?.exp >= Date.now()
+      );
     if (accessToken) {
-      console.log("check er pore accessToken check kori");
-      // if accessToken expires generate a new one
+      console.log("🍎🍎🍎 57 🍎🍎🍎");
+
+      console.log("🍎🍎🍎 60 🍎🍎🍎");
+
+      //* if accessToken expires generate a new one
       let accessTokenVerification = await JWT.verify(
         accessToken,
         process.env.SECRET_KEY,
         async function (err, decoded) {
           if (err) {
-            console.log("REFRESH_CONTROLLER.js:65:", err?.name, err?.message);
-            if (err.name == "TokenExpiredError") {
-              // console.log("accessToken expired renewing 👈👈👈");
+            console.log("REFRESH_CONTROLLER.js:55:", err?.name, err?.message);
+            if (err?.name == "TokenExpiredError") {
+              console.log("🍎🍎🍎68 🍎🍎🍎");
               accessToken = JWT.sign(
                 { email: email, role: foundUser.role },
                 process.env.SECRET_KEY,
                 {
-                  expiresIn: "5s",
+                  expiresIn: "10s",
                 }
               );
+              console.log("🍎🍎🍎 67 🍎🍎🍎");
+
               return await res
                 .status(200)
                 .json({ accessToken, srvFile: "refreshTokenController.js" });
             } else {
-              console.log("nahole status pathacci");
-              req.body.refreshTokenExpiry = true;
+              console.log("🍎🍎🍎 82 🍎🍎🍎");
               next();
+              console.log("🍎🍎🍎84🍎🍎🍎");
+              return await res
+                .status(200)
+                .json({ accessToken, srvFile: "refreshTokenController.js" });
             }
           }
         }
