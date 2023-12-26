@@ -8,19 +8,8 @@ then they can call this api to generate a jwt token
 const tokenGeneratorController = (req, res) => {
   const { uid, email, role } = req.body;
 
-  const accessToken = JWT.sign(
-    { uid, email: email, role },
-    process.env.SECRET_KEY,
-    {
-      expiresIn: "15m",
-    }
-  );
-
-  res.cookie("access_token", accessToken, {
-    maxAge: 24 * 60 * 60 * 1000,
-    httpOnly: false,
-    secure: false,
-    sameSite: "none",
+  const accessToken = JWT.sign({ uid, email, role }, process.env.SECRET_KEY, {
+    expiresIn: "5m",
   });
 
   res.status(200).json({ accessToken, srvFile: "tokenGeneratorController.js" });
