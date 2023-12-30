@@ -5,9 +5,7 @@ const JWT = require("jsonwebtoken");
 const LoginController = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const userInfo = await User.findOne({ email: email }); // getting user from db for password
-    /* if (userInfo.length <= 0)
-      return res.status(401).send({ msg: "Credentials doesn't match" }); */
+    const userInfo = await User.findOne({ email: email });
     if (!userInfo)
       return res.status(401).send({ msg: "Credentials doesn't match" });
 
