@@ -13,14 +13,9 @@ const tokenGeneratorController = async (req, res) => {
   ! THIS WHOLE FILE NEEDS TESTING
   */
 
-  /*   // checking if user already exists
-? maybe i don't need to check it because that's handled by "firebase"
-! remove this code if it is not needed for sure
-  const matchPreviousEmail = await User.find({ email: email });
-  if (matchPreviousEmail.length > 0) {
-    return res.status(409).json({ msg: "User already exists" });
-  } */
-
+  /* 
+! if firebase user info is not in mongodb then store it
+*/
   // generating refreshToken and accessToken below
   const refreshToken = JWT.sign(
     { email: email },
@@ -31,12 +26,22 @@ const tokenGeneratorController = async (req, res) => {
   );
 
   const accessToken = JWT.sign({ uid, email, role }, process.env.SECRET_KEY, {
-    expiresIn: "5m",
+    expiresIn: "7s",
   });
 
   // save user info on mongoDB database
-  User.create({ email, refreshToken });
-
+  const foundUser = await User.findOne({ email: email });
+  console.log(
+    "🚀 ~ file: tokenGeneratorController.js:40 ~ tokenGeneratorController ~ foundUser:",
+    foundUser
+  );
+  if (foundUser) {
+    foundUser.refreshToken = refreshToken;
+    await foundUser?.save();
+  } else {
+    await User.create({ email, role, uid, refreshToken });
+  }
+  console.log(refreshToken, "controller");
   res.status(200).json({ accessToken, srvFile: "tokenGeneratorController.js" });
 };
 module.exports = tokenGeneratorController;
