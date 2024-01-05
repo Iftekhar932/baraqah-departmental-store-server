@@ -21,6 +21,7 @@ const refreshTokenController = async (req, res, next) => {
       return await res.status(403).json({ msg: "You are not Signed up" });
     }
 
+    // verifying refreshToken
     let refreshTokenVerification;
     try {
       //* If refreshToken is expired, generate a new refreshToken
@@ -50,9 +51,15 @@ const refreshTokenController = async (req, res, next) => {
       refreshTokenVerification.exp,
       Date.now(),
       refreshTokenVerification.exp >= Date.now(),
-      "line45"
+      "line54"
     );
     if (refreshTokenVerification?.exp >= Date.now()) {
+      await console.log(
+        refreshTokenVerification.exp,
+        Date.now(),
+        refreshTokenVerification.exp >= Date.now(),
+        "line61"
+      );
       if (accessToken) {
         //* if accessToken expires generate a new one and send it to the client(received in route.js refreshHandlingFunction)
         let accessTokenVerification = await JWT.verify(
