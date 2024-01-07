@@ -14,8 +14,10 @@ const tokenGeneratorController = async (req, res) => {
   */
 
   // generating refreshToken and accessToken below
-  const oneDayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
-  const expiresIn = oneDayInMilliseconds + Date.now();
+  // const oneDayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
+  const oneMinInMilliseconds = 60 * 1000;
+  // const expiresIn = oneDayInMilliseconds + Date.now();
+  const expiresIn = oneMinInMilliseconds + Date.now();
   const refreshToken = JWT.sign(
     { email: email },
     process.env.REFRESH_TOKEN_KEY,
