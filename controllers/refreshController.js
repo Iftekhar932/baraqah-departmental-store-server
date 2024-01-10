@@ -54,12 +54,6 @@ const refreshTokenController = async (req, res, next) => {
       "line54"
     );
     if (refreshTokenVerification?.exp >= Date.now()) {
-      await console.log(
-        refreshTokenVerification.exp,
-        Date.now(),
-        refreshTokenVerification.exp >= Date.now(),
-        "line61"
-      );
       if (accessToken) {
         //* if accessToken expires generate a new one and send it to the client(received in route.js refreshHandlingFunction)
         let accessTokenVerification = await JWT.verify(
@@ -72,7 +66,7 @@ const refreshTokenController = async (req, res, next) => {
                   { email: email, role: foundUser.role },
                   process.env.SECRET_KEY,
                   {
-                    expiresIn: "10s",
+                    expiresIn: "5m",
                   }
                 );
 

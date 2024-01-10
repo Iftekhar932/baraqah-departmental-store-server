@@ -14,10 +14,8 @@ const tokenGeneratorController = async (req, res) => {
   */
 
   // generating refreshToken and accessToken below
-  // const oneDayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
-  const oneMinInMilliseconds = 60 * 1000;
-  // const expiresIn = oneDayInMilliseconds + Date.now();
-  const expiresIn = oneMinInMilliseconds + Date.now();
+  const oneDayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
+  const expiresIn = oneDayInMilliseconds + Date.now(); // timestamp of one day later
   const refreshToken = JWT.sign(
     { email: email },
     process.env.REFRESH_TOKEN_KEY,
@@ -27,7 +25,7 @@ const tokenGeneratorController = async (req, res) => {
   );
 
   const accessToken = JWT.sign({ uid, email, role }, process.env.SECRET_KEY, {
-    expiresIn: "7s",
+    expiresIn: "5m",
   });
 
   // save user info on mongoDB database
