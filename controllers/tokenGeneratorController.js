@@ -30,10 +30,6 @@ const tokenGeneratorController = async (req, res) => {
 
   // save user info on mongoDB database
   const foundUser = await User.findOne({ email: email });
-  console.log(
-    "🚀 ~ file: tokenGeneratorController.js:40 ~ tokenGeneratorController ~ foundUser:",
-    foundUser
-  );
   if (foundUser) {
     foundUser.refreshToken = refreshToken;
     await foundUser?.save();

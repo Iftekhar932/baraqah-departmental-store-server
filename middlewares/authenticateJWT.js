@@ -8,7 +8,6 @@ const authenticateJWT = async (req, res, next) => {
     const headersToken = req.headers.Authorization || req.headers.authorization;
 
     const token = headersToken?.split(" ")[1];
-    // console.log("🍎🍎🍎11auth🍎🍎🍎");
 
     JWT.verify(token, process.env.SECRET_KEY, async (err, user) => {
       if (err) {

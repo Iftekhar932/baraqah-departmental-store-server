@@ -11,13 +11,9 @@ const adminUserDeletionController = async (req, res) => {
     }
     if (flag == "_id") {
       const findUser = await User.findOne({ _id: id }).exec();
-      console.log(
-        "🚀 ~ file: adminUserDeletionController.js:22 ~ adminUserDeletionController ~ findUser:",
-        findUser
-      );
 
       findUser.role == "admin"
-        ? console.log("this one")
+        ? console.log("Cancelled")
         : await User.deleteOne({ _id: id }).exec();
     }
     res

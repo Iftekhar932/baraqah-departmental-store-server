@@ -13,10 +13,6 @@ const refreshTokenController = async (req, res, next) => {
     }
 
     let refreshToken = foundUser?.refreshToken || "";
-    console.log(
-      "🚀 ~ file: refreshController.js:16 ~ refreshTokenController ~ refreshToken:",
-      refreshToken
-    );
     if (!refreshToken) {
       return await res.status(403).json({ msg: "You are not Signed up" });
     }
@@ -31,7 +27,7 @@ const refreshTokenController = async (req, res, next) => {
       );
     } catch (err) {
       console.log(
-        "❌❌❌ refreshController: LINE 29 ",
+        "❌❌❌ refreshController: LINE 34 ",
         err?.name,
         err?.message,
         "refreshToken expired ❌❌❌"
@@ -47,12 +43,6 @@ const refreshTokenController = async (req, res, next) => {
     let headers = req.headers.authorization || req.headers.Authorization;
     let accessToken = headers.split(" ")[1];
 
-    console.log(
-      refreshTokenVerification.exp,
-      Date.now(),
-      refreshTokenVerification.exp >= Date.now(),
-      "line54"
-    );
     if (refreshTokenVerification?.exp >= Date.now()) {
       if (accessToken) {
         //* if accessToken expires generate a new one and send it to the client(received in route.js refreshHandlingFunction)
