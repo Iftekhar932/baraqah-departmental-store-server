@@ -7,6 +7,10 @@ const RegisterController = async (req, res) => {
   try {
     // checking if user already exists
     const matchPreviousEmail = await User.find({ email: email });
+    console.log(
+      "🚀 ~ RegisterController ~ matchPreviousEmail:",
+      matchPreviousEmail
+    );
     if (matchPreviousEmail.length > 0) {
       return res.status(409).json({ msg: "User already exists" });
     }
