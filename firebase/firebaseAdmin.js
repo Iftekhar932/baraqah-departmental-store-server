@@ -5,7 +5,6 @@ const serviceAccount = require("./baraqah-departmental-store-firebase-adminsdk-z
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  // databaseURL: "https://your-project-id.firebaseio.com",
 });
 
 module.exports = admin;
