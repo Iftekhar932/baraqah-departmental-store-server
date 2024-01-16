@@ -14,16 +14,8 @@
   ],
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/routes/api"
-    },
-    {
-      "source": "/(login|register|forgotpassword)",
-      "destination": "/routes/$1"
-    },
-    {
       "source": "/(.*)",
-      "destination": "/index.js"
+      "destination": "/routes/api"
     }
   ]
 }
