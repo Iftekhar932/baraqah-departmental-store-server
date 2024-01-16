@@ -6,10 +6,18 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/routes/api/$1"
+    },
+    {
+      "source": "/(login|register|forgotPassword)",
+      "destination": "/routes/$1"
+    },
     {
       "source": "/(.*)",
-      "dest": "/"
+      "destination": "/index.js"
     }
   ]
 }
