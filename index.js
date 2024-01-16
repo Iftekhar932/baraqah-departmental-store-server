@@ -1,5 +1,5 @@
 const express = require("express");
-export const app = express();
+const app = express();
 const port = process.env.PORT || 3001;
 const cors = require("cors");
 require("dotenv").config();
@@ -48,3 +48,4 @@ app.use("/", require("./routes/api/allProducts.js"));
 app.listen(port, () => {
   console.log(`RUNNING ON PORT 👉👉 ${port}`);
 });
+module.exports = app;
