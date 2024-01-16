@@ -5,7 +5,8 @@ const authenticateJWT = async (req, res, next) => {
 
   try {
     // for localStorage bearer token
-    const headersToken = req.headers.Authorization || req.headers.authorization;
+    const headersToken =
+      req?.headers?.Authorization || req?.headers?.authorization;
 
     const token = headersToken?.split(" ")[1];
 
