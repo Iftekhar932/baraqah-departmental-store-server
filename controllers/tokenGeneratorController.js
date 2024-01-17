@@ -9,10 +9,6 @@ then we can verify refreshToken in "refreshController"
 const tokenGeneratorController = async (req, res) => {
   const { uid, email, role } = req.body;
 
-  /* 
-  ! THIS WHOLE FILE NEEDS TESTING
-  */
-
   // generating refreshToken and accessToken below
   const oneDayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
   const expiresIn = oneDayInMilliseconds + Date.now(); // timestamp of one day later
