@@ -8,8 +8,7 @@ require("dotenv").config();
 // middleware
 app.use(
   cors({
-    origin: ["https://baraqah-departmental-store-server.vercel.app/"],
-    methods: ["POST", "GET"],
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
