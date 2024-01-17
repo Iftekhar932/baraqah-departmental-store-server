@@ -1,28 +1,22 @@
 {
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/routes/api/$1"
-    },
+    { "source": "/api/(.*)", "destination": "/src/routes/api/$1" },
     {
       "source": "/register",
-      "destination": "/controllers/registerController.js"
+      "destination": "/src/controllers/registerController.js"
     },
     {
       "source": "/login",
-      "destination": "/controllers/loginController.js"
+      "destination": "/src/controllers/loginController.js"
     },
     {
       "source": "/passwordReset",
-      "destination": "/controllers/forgotPasswordController.js"
+      "destination": "/src/controllers/forgotPasswordController.js"
     },
     {
       "source": "/jsonWebAccessToken",
-      "destination": "/controllers/tokenGeneratorController.js"
+      "destination": "/src/controllers/tokenGeneratorController.js"
     },
-    {
-      "source": "/(.*)",
-      "destination": "/index.js"
-    }
+    { "source": "/(.*)", "destination": "/src/index.js" }
   ]
 }
