@@ -4,6 +4,7 @@ const JWT = require("jsonwebtoken");
 
 const RegisterController = async (req, res) => {
   const { email, password } = req.body;
+  console.log("🚀 ~ RegisterController ~  email, password:", email, password);
   try {
     // checking if user already exists
     const matchPreviousEmail = await User.find({ email: email });

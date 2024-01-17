@@ -16,23 +16,21 @@ app.use(
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// custom middlewares import
 const authenticateJWT = require("./middlewares/authenticateJWT.js");
-const refreshToken = require("./routes/api/refresh.js");
 
 //  mongoose database connection
 const connectDB = require("./database/mongooseDB.js");
 connectDB();
 
-app.use("/register", require("./controllers/registerController.js"));
-app.use("/login", require("./controllers/loginController.js"));
-app.use("/passwordReset", require("./controllers/forgotPasswordController.js"));
+app.use("/", require("./routes/api/register.js"));
+app.use("/", require("./routes/api/login.js"));
+app.use("/", require("./routes/api/forgotPassword.js"));
 
-app.use(
-  "/jsonWebAccessToken",
-  require("./controllers/tokenGeneratorController")
-); // this one's for google or any other sign in method of firebase used in client side's "useFirebase" hook
+app.use("/", require("./routes/api/tokenGenerator.js")); // this one's for google or any other sign in method of firebase used in client side's "useFirebase" hook
 
-app.use("/", refreshToken);
+app.use("/", require("./routes/api/refresh.js"));
 
 app.use(authenticateJWT);
 
