@@ -3,14 +3,17 @@ const app = express();
 const port = process.env.PORT || 3001;
 const cors = require("cors");
 require("dotenv").config();
+// const corsOptions = require("./config/corsOptions.js");
 
 // middleware
-app.use(
+app.use(cors());
+/* app.use(
   cors({
-    origin: "https://baraqah-departmental-store-server.onrender.com",
+    origin: "https://baraqah-departmental-store-server.onrender.com/",
     credentials: true,
   })
-);
+); */
+app.use(cors(corsOptions));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
