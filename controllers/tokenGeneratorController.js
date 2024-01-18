@@ -20,6 +20,7 @@ const tokenGeneratorController = async (req, res) => {
     }
   );
 
+  // ? refreshToken api is in the "useFirebase" hook's "signInWithGoogle" function
   const accessToken = JWT.sign({ uid, email, role }, process.env.SECRET_KEY, {
     expiresIn: "5m",
   });

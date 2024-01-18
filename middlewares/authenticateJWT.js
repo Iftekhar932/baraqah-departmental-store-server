@@ -10,6 +10,7 @@ const authenticateJWT = async (req, res, next) => {
 
     const token = headersToken?.split(" ")[1];
 
+    // verifying access token
     JWT.verify(token, process.env.SECRET_KEY, async (err, user) => {
       if (err) {
         console.log("AUTHENTICATEjWT -LINE-12", err.name, err.message);

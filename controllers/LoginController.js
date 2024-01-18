@@ -24,6 +24,16 @@ const LoginController = async (req, res) => {
       }
     );
 
+    const oneDayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
+    const expiresIn = oneDayInMilliseconds + Date.now(); // timestamp of one day later
+    const refreshToken = JWT.sign(
+      { email: email },
+      process.env.REFRESH_TOKEN_KEY,
+      {
+        expiresIn,
+      }
+    );
+    /* 
     // jwt sign refresh token
     const refreshToken = JWT.sign(
       { email: email },
@@ -32,7 +42,7 @@ const LoginController = async (req, res) => {
         expiresIn: "1d",
       }
     );
-
+ */
     // update the refreshToken that user has on storage
     userInfo.refreshToken = refreshToken;
     await userInfo.save();
