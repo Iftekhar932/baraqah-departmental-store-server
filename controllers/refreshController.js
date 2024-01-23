@@ -46,22 +46,7 @@ const refreshTokenController = async (req, res, next) => {
     let headers = req.headers.authorization || req.headers.Authorization;
     let accessToken = headers.split(" ")[1];
 
-    /*  console.log("age");
-    console.log(
-      48 + "Line",
-      refreshTokenVerification?.exp,
-      Date.now(),
-      refreshTokenVerification?.exp >= Date.now()
-    ); */
     if (refreshTokenVerification?.exp >= Date.now()) {
-      /*       console.log("pore");
-
-      console.log(
-        56 + "Line",
-        refreshTokenVerification?.exp,
-        Date.now(),
-        refreshTokenVerification?.exp >= Date.now()
-      ); */
       if (accessToken) {
         //* if accessToken expires generate a new one and send it to the client(received in route.js refreshHandlingFunction)
         let accessTokenVerification = await JWT.verify(
