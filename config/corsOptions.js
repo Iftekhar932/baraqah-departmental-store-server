@@ -3,6 +3,7 @@ const whitelist = [
   "http://localhost:3001",
   "https://baraqah-departmental-store-server.onrender.com",
   "https://baraqah-departmental-store-server.onrender.com/getAllProducts",
+  "https://baraqah-departmental-store-server.onrender.com/login",
   "http://localhost:3000",
 ];
 
