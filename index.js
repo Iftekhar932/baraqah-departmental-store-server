@@ -7,17 +7,6 @@ const corsOptions = require("./config/corsOptions.js");
 
 // middlewares
 app.use(cors(corsOptions));
-/* app.options("*", cors());
-let allowCrossDomain = function (req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://baraqah-departmental-store-server.onrender.com"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
-};
-app.use(allowCrossDomain); */
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
