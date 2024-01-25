@@ -26,7 +26,7 @@ const LoginController = async (req, res) => {
 
     // jwt sign refresh token
     const daysInMilliseconds = 20 * 24 * 60 * 60 * 1000;
-    const expiresIn = oneDayInMilliseconds + Date.now(); // timestamp of 20 days later
+    const expiresIn = daysInMilliseconds + Date.now(); // timestamp of 20 days later
     const refreshToken = JWT.sign(
       { email: email },
       process.env.REFRESH_TOKEN_KEY,
