@@ -23,7 +23,7 @@ const RegisterController = async (req, res) => {
     );
 
     // Save the user to the database with credentials
-    await User.create({ email: email, password: hashedPWD, refreshToken });
+    await User.create({ email: email, password, refreshToken });
 
     res.status(201).send({ msg: "User account created" });
   } catch (error) {
