@@ -3,21 +3,15 @@ const User = require("../Schemas/UserSchema.js");
 const JWT = require("jsonwebtoken");
 
 const RegisterController = async (req, res) => {
-  const { email, password } = req.body;
-  console.log("🚀 ~ RegisterController ~  email, password:", email, password);
   try {
+    const { email, password } = req.body;
     // checking if user already exists
-    const matchPreviousEmail = await User.find({ email: email });
-    console.log(
-      "🚀 ~ RegisterController ~ matchPreviousEmail:",
-      matchPreviousEmail
-    );
-    if (matchPreviousEmail.length > 0) {
+    const matchPreviousEmail = await User.findOne({ email: email });
+    if (matchPreviousEmail != null) {
       return res.status(409).json({ msg: "User already exists" });
     }
-
     // hashing password
-    const hashedPWD = await bcrypt.hash(password, 10);
+    // const hashedPWD = await bcrypt.hash(password, 10);
 
     // refreshToken creation
     const refreshToken = JWT.sign(
