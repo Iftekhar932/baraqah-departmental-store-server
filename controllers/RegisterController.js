@@ -1,4 +1,3 @@
-const bcrypt = require("bcrypt");
 const User = require("../Schemas/UserSchema.js");
 const JWT = require("jsonwebtoken");
 
@@ -27,7 +26,7 @@ const RegisterController = async (req, res) => {
 
     res.status(201).send({ msg: "User account created" });
   } catch (error) {
-    console.log("✨ 🌟  RegisterController  error customRef:line21:", error);
+    console.log("✨ 🌟  RegisterController  error customRef29:", error);
   }
 };
 

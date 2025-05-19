@@ -3,13 +3,14 @@ const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 
 const LoginController = async (req, res) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
     const userInfo = await User.findOne({ email: email });
-    if (userInfo != null)
+    if (userInfo == null)
       return res.status(401).send({ msg: "Credentials doesn't match" });
 
     // matching password with database password
+
     const match = await bcrypt.compare(password, userInfo?.password);
     if (!match) {
       return res.status(401).send({ msg: "Invalid Password" });
@@ -37,7 +38,6 @@ const LoginController = async (req, res) => {
     // update the refreshToken that user has on storage
     userInfo.refreshToken = refreshToken;
     await userInfo.save();
-
     res.status(200).send({ accessToken, email, role: userInfo.role });
   } catch (error) {
     console.log("✨ 🌟  LoginController  error: customRef:line22", error);
