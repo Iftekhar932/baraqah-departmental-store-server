@@ -6,7 +6,7 @@ const LoginController = async (req, res) => {
   const { email, password } = req.body;
   try {
     const userInfo = await User.findOne({ email: email });
-    if (!userInfo)
+    if (userInfo != null)
       return res.status(401).send({ msg: "Credentials doesn't match" });
 
     // matching password with database password
