@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -13,17 +14,18 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    unique: true,
     minlength: [8, "Password must be at least 8 characters long"],
-    validate: {
+    // Regex for strong password: at least 1 uppercase, 1 lowercase, 1 number, 1 special character
+    /* validate: {
       validator: function (value) {
-        // Regex for strong password: at least 1 uppercase, 1 lowercase, 1 number, 1 special character
         return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
           value
         );
       },
       message:
         "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
-    },
+    }, */
   },
   img: {
     type: String,
@@ -39,6 +41,28 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: new Date().now,
   },
+});
+
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+
+  // Regex for strong password: at least 1 uppercase, 1 lowercase, 1 number, 1 special character
+  const strongPWD =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/.test(
+      this.password
+    );
+  if (!strongPWD) {
+    return next(
+      new Error(
+        "Password must be at least 8 characters and include uppercase, lowercase, number, and special character."
+      )
+    );
+  }
+
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
 });
 
 module.exports = mongoose.model("user", UserSchema);
