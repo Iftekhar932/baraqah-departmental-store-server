@@ -58,9 +58,9 @@ UserSchema.pre("save", async function (next) {
     return next(
       new Error(
         "Password must be at least 8 characters and include uppercase, lowercase, number, and special character."
-      )
-    );
-  } */
+        )
+        );
+        } */
 
   this.password = await bcrypt.hash(this.password, 10);
   next();

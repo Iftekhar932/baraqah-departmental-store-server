@@ -10,7 +10,6 @@ const LoginController = async (req, res) => {
       return res.status(401).send({ msg: "Credentials doesn't match" });
 
     // matching password with database password
-
     const match = await bcrypt.compare(password, userInfo?.password);
     if (!match) {
       return res.status(401).send({ msg: "Invalid Password" });
