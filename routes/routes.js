@@ -1,6 +1,5 @@
 const express = require("express");
 const authenticateJWT = require("../middlewares/authenticateJWT");
-const app = express();
 const router = express.Router();
 
 // Public APIs
@@ -11,7 +10,7 @@ router.use("/", require("./api/tokenGenerator"));
 router.use("/", require("./api/refresh"));
 
 // custom middlewares to authenticate JWT
-app.use(authenticateJWT);
+router.use(authenticateJWT);
 
 // Admin APIs
 router.use("/", require("./api/adminGetUsers"));
