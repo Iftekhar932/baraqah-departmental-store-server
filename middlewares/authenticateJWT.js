@@ -5,11 +5,14 @@ const authenticateJWT = async (req, res, next) => {
 
   try {
     // for localStorage bearer token
-    const headersToken =
-      req?.headers?.Authorization || req?.headers?.authorization;
-
-    const token = headersToken?.split(" ")[1];
-
+    const headersToken = req.headers.authorization || req.headers.Authorization;
+    const token =
+      headersToken && headersToken.startsWith("Bearer ")
+        ? headersToken.split(" ")[1]
+        : null;
+    if (!token) {
+      return res.status(401).json({ msg: "No token provided" });
+    }
     // verifying access token
     JWT.verify(token, process.env.SECRET_KEY, async (err, user) => {
       if (err) {
@@ -22,6 +25,7 @@ const authenticateJWT = async (req, res, next) => {
         });
       } else {
         req.user = user;
+        console.log(user);
         next();
       }
     });

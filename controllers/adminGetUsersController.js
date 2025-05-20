@@ -4,9 +4,9 @@ const firebaseAdmin = require("../firebase/firebaseAdmin.js"); // Adjust the pat
 
 const adminGetUsersController = async (req, res) => {
   try {
-    if (req.user.role !== "admin") {
+    if (req.user?.role !== "admin") {
       //  "user"👆  is set in "authenticateJWT.js"
-      return await res.sendStatus(403).json({ msg: "Only for admins" }); //forbidden
+      return res.status(403).json({ msg: "Only for admins" }); //forbidden
     }
     const emailAccounts = await User.find();
 
