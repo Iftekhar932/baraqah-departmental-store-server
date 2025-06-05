@@ -2,6 +2,9 @@ const express = require("express");
 const authenticateJWT = require("../middlewares/authenticateJWT");
 const router = express.Router();
 
+
+app.get('/health', (req, res) => res.sendStatus(200));
+
 // Public APIs
 router.use("/", require("./api/register"));
 router.use("/", require("./api/login"));
